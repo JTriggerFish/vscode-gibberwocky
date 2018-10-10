@@ -1,7 +1,7 @@
 {
     "name": "vscode-gibberwocky",
     "displayName": "vscode-gibberwocky",
-    "description": "Gibberwocky Live Coding plugin for VSCode",
+    "description": "Gibberwocky.Live Live Coding plugin for VSCode",
     "version": "0.0.1",
     "publisher": "JTriggerFish",
     "engines": {
@@ -11,14 +11,45 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onCommand:gibberwocky.execute",
+        "onCommand:gibberwocky.delayedExecute",
+        "onCommand:gibberwocky.clear"
     ],
     "main": "./extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.sayHello",
-                "title": "Hello World"
+                "command": "gibberwocky.execute",
+                "title": "Gibberwocky: Execute current selected block"
+            },
+            {
+                "command": "gibberwocky.delayedExecute",
+                "title": "Gibberwocky: Execute current selected block with a delay"
+            },
+            {
+                "command": "gibberwocky.clear",
+                "title": "Gibberwocky: Clear running sequences and audio graphs"
+            }
+
+        ],
+        "keybindings": [
+            {
+                "command": "gibberwocky.execute",
+                "key": "ctrl+enter",
+                "mac": "cmd+enter",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "gibberwocky.delayedExecute",
+                "key": "ctrl+shift+enter",
+                "mac": "cmd+shift+enter",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "gibberwocky.clear",
+                "key": "ctrl+.",
+                "mac": "cmd+.",
+                "when": "editorTextFocus"
             }
         ]
     },
