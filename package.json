@@ -1,6 +1,6 @@
 {
-    "name": "gibberwocky",
-    "displayName": "gibberwocky",
+    "name": "vscode-gibberwocky",
+    "displayName": "vscode-gibberwocky",
     "description": "Gibberwocky Live Coding plugin for VSCode",
     "version": "0.0.1",
     "publisher": "JTriggerFish",
