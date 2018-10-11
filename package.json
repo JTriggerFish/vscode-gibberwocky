@@ -51,7 +51,24 @@
                 "mac": "cmd+.",
                 "when": "editorTextFocus"
             }
-        ]
+        ],
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "lomView",
+                    "title": "Gibberwocky",
+                    "icon": "media/dep.svg"
+                }
+            ]
+        },
+        "views": {
+            "lom-view": [
+                {
+                    "id": "lomTree",
+                    "name": "Live object tree"
+                }
+            ]
+        }
     },
     "scripts": {
         "postinstall": "node ./node_modules/vscode/bin/install",
