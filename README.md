@@ -1,4 +1,4 @@
-# vscode-gibberwocky README
+# vscode-gibberwocky
 
 Gibberwocky.live vscode extension.
 Nothing to see here yet.
