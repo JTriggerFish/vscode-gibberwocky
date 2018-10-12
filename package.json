@@ -75,6 +75,9 @@
         "test": "node ./node_modules/vscode/bin/test"
     },
     "dependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-core": "^6.26.3",
+        "babel-preset-env": "^1.7.0",
         "big.js": "^5.2.1",
         "genish.js": "^0.2.4",
         "loophole": "^1.1.0"
