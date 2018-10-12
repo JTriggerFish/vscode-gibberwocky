@@ -1,7 +1,6 @@
 let Gibber = {
   Utility:       require( './utility.js' ),
   Communication: require( './communication.js' ),
-  Environment:   require( './environment.js' ),
   Scheduler:     require( './clock.js' ),
   Theory:        require( './theory.js' ),
   Examples:      require( './example.js' ),
@@ -50,7 +49,6 @@ let Gibber = {
     this.$   = Gibber.Utility.create
 
 
-    this.Environment.init( Gibber )
     this.Theory.init( Gibber )
     this.log = this.Environment.log
 

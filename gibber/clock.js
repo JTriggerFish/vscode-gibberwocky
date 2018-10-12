@@ -1,5 +1,5 @@
 const Queue = require( './priorityqueue.js' )
-const Big   = require( 'big.js' )
+const Big   = require('big.js')
 
 let Scheduler = {
   phase: 0,
