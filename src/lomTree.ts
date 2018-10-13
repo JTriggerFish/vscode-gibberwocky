@@ -2,12 +2,12 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 
-export class LomTree implements vscode.TreeDataProvider<LomObject> {
+export default class LomTree implements vscode.TreeDataProvider<LomObject> {
 
 	private _onDidChangeTreeData: vscode.EventEmitter<LomObject | undefined> = new vscode.EventEmitter<LomObject | undefined>();
 	readonly onDidChangeTreeData: vscode.Event<LomObject | undefined> = this._onDidChangeTreeData.event;
 
-	constructor(private workspaceRoot: string) {
+	constructor() {
 	}
 
 	refresh(): void {
