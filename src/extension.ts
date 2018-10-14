@@ -1,13 +1,13 @@
 'use strict';
-//Hack to make use of global variables in gibberwocky work ?
+import * as vscode from 'vscode';
 
+//Hack to make use of global variables in gibberwocky work ?
 /*global window*/
 type Window = {
     Gibber: any;
 };
 declare var window: Window;
 
-import * as vscode from 'vscode';
 const gibber = require('../gibber/gibber')
 import LomTree from './lomTree';
 const loophole = require('loophole')
