@@ -1,10 +1,17 @@
 'use strict';
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
+//Hack to make use of global variables in gibberwocky work ?
+
+/*global window*/
+type Window = {
+    Gibber: any;
+};
+declare var window: Window;
+
 import * as vscode from 'vscode';
 const gibber = require('../gibber/gibber')
 import LomTree from './lomTree';
 const loophole = require('loophole')
+
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -17,6 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
       console.log(message);
     }
     gibber.Communication.init(gibber);
+    window.Gibber = gibber;
 
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand

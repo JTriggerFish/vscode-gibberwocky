@@ -1,6 +1,4 @@
 import * as vscode from 'vscode';
-import * as fs from 'fs';
-import * as path from 'path';
 
 export default class LomTree implements vscode.TreeDataProvider<LomObject> {
 

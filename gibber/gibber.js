@@ -1,3 +1,5 @@
+with(window)
+{
 let Gibber = {
   Utility:       require( './utility.js' ),
   Communication: require( './communication.js' ),
@@ -517,3 +519,5 @@ Gibber.WavePattern = require( './wavePattern.js' )( Gibber )
 
 Gibber.Gen = Gibber.__gen.gen
 module.exports = Gibber
+
+}

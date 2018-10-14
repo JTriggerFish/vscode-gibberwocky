@@ -16,7 +16,7 @@
         "onCommand:gibberwocky.delayedExecute",
         "onCommand:gibberwocky.clear"
     ],
-    "main": "./extension",
+    "main": "./out/extension",
     "contributes": {
         "commands": [
             {
