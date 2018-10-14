@@ -183,7 +183,7 @@ module.exports = function( Gibber ) {
         Gibber.clear()
         setTimeout( ()=> {
           Gibber.Live.tracks[0].volume( volume )
-          Gibber.Environment.suppressErrors = false
+          // Gibber.Environment.suppressErrors = false
         }, 50 )
       }, 250 * 8 )
 
@@ -212,7 +212,7 @@ module.exports = function( Gibber ) {
         }
       })
 
-      Gibber.Environment.suppressErrors = true
+      // Gibber.Environment.suppressErrors = true
 
       for( let name of this.ugenNames ) {
         this.ugens[ name ] = function( ...inputs ) {

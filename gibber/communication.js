@@ -1,4 +1,5 @@
 let Gibber = null
+let WebSocket = require('websocket').client;
 
 let Communication = {
   webSocketPort: 8081, // default?
@@ -18,21 +19,21 @@ let Communication = {
   createWebSocket() {
     if (this.connected) return
 
-    if ('WebSocket' in window) {
+    if (true) {
       //Gibber.log( 'Connecting' , this.querystring.host, this.querystring.port )
       if (this.connectMsg === null) {
-        this.connectMsg = Gibber.log('connecting')
+        this.connectMsg = 'connecting';
       } else {
         this.connectMsg.innerText += '.'
       }
 
-      let host = this.querystring.host || '127.0.0.1',
-        port = this.querystring.port || '8081',
+      let host = '127.0.0.1',
+        port =  '8081',
         address = "ws://" + host + ":" + port
 
       this.wsocket = new WebSocket(address)
 
-      this.wsocket.onopen = function (ev) {
+      this.wsocket.on('connect',  function (ev) {
         //Gibber.log( 'CONNECTED to ' + address )
         Gibber.log('gibberwocky is ready to burble.')
         this.connected = true
@@ -43,9 +44,9 @@ let Communication = {
 
         // apparently this first reply is necessary
         this.wsocket.send('update on')
-      }.bind(Communication)
+      }.bind(Communication));
 
-      this.wsocket.onclose = function (ev) {
+      this.wsocket.on('close' , function (ev) {
         if (this.connected) {
           Gibber.log('disconnected from ' + address)
           this.connectMsg = null
@@ -54,16 +55,18 @@ let Communication = {
 
         // set up an auto-reconnect task:
         this.connectTask = setTimeout(this.createWebSocket.bind(Communication), 1000)
-      }.bind(Communication)
+      }.bind(Communication));
 
-      this.wsocket.onmessage = function (ev) {
+      this.wsocket.on('message' , function (ev) {
         //Gibber.log('msg:', ev )
         this.handleMessage(ev)
-      }.bind(Communication)
+      }.bind(Communication));
 
-      this.wsocket.onerror = function (ev) {
+      this.wsocket.on('error' , function (ev) {
         Gibber.log('WebSocket error')
-      }.bind(Communication)
+      }.bind(Communication));
+
+      this.wsocket.connect(address);
 
     } else {
       post('WebSockets are not available in this browser!!!');
@@ -96,7 +99,7 @@ let Communication = {
           param_value = 1
         }
 
-        Gibber.Environment.codeMarkup.waveform.updateWidget(param_id, 1 - param_value)
+        // Gibber.Environment.codeMarkup.waveform.updateWidget(param_id, 1 - param_value)
       }
 
       return
@@ -132,7 +135,7 @@ let Communication = {
         break;
 
       case 'clr':
-        Gibber.Environment.clearConsole()
+        // Gibber.Environment.clearConsole()
         break;
 
       case 'bpm':
@@ -140,7 +143,7 @@ let Communication = {
         break;
 
       case 'err':
-        Gibber.Environment.error(data)
+        Gibber.Environment.log(data)
         break;
 
       default:

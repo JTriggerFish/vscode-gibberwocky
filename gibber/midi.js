@@ -117,7 +117,7 @@ const MIDI = {
         input.onmidimessage = MIDI.handleMsg
         input.open()
         MIDI.input = input
-        Gibber.Environment.log( 'MIDI input ' + name + ' opened.' )
+        Gibber.log( 'MIDI input ' + name + ' opened.' )
         found = true
       }
     }
@@ -139,7 +139,7 @@ const MIDI = {
         output.onmidimessage = MIDI.handleMsg
         output.open()
         MIDI.output = output
-        Gibber.Environment.log( 'MIDI output ' + name + ' opened.' )
+        Gibber.log( 'MIDI output ' + name + ' opened.' )
         found = true
       }
     }

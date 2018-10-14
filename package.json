@@ -80,7 +80,8 @@
     "dependencies": {
         "big.js": "^5.2.1",
         "genish.js": "^0.2.4",
-        "loophole": "^1.1.0"
+        "loophole": "^1.1.0",
+        "websocket": "^1.0.28"
     },
     "devDependencies": {
         "@types/mocha": "^2.2.42",

@@ -44,7 +44,7 @@ let Live = {
 
     Gibber.Scheduler.bpm = Live.LOM.bpm
 
-    Gibber.Environment.lomView.init( Gibber )
+    // Gibber.Environment.lomView.init( Gibber )
 
     Gibber.publish( 'lom_update' )
   },

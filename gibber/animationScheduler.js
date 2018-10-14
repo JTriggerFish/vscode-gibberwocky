@@ -54,9 +54,9 @@ let Scheduler = {
       this.run( timestamp )
     }
 
-    if( Gibber.Environment.codeMarkup.waveform.widgets.dirty === true ) {
-      Gibber.Environment.codeMarkup.waveform.drawWidgets()
-    }
+    // if( Gibber.Environment.codeMarkup.waveform.widgets.dirty === true ) {
+    //   Gibber.Environment.codeMarkup.waveform.drawWidgets()
+    // }
   },
 
   onAnimationFrame( timestamp ) {

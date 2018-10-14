@@ -1,23 +1,24 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode = require("vscode");
-const gibber = require('../gibber/gibber');
+// let window: Window = {Gibber:null};
+const Gibber = require('../gibber/gibber');
 const lomTree_1 = require("./lomTree");
 const loophole = require('loophole');
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 function activate(context) {
-    console.log('vscode-gibberwocky is now active!');
-    gibber.init();
-    gibber.log = (message) => {
-        console.log(message);
+    console.log('vscode-Gibberwocky is now active!');
+    Gibber.init();
+    Gibber.log = (message) => {
+        vscode.window.showInformationMessage(message);
     };
-    gibber.Communication.init(gibber);
-    window.Gibber = gibber;
+    Gibber.Communication.init(Gibber);
+    window.Gibber = Gibber;
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
-    let execDisposable = vscode.commands.registerCommand('gibberwocky.execute', function () {
+    let execDisposable = vscode.commands.registerCommand('Gibberwocky.execute', function () {
         vscode.window.showInformationMessage('Gibberwocky Execute');
         let editor = vscode.window.activeTextEditor;
         if (!editor) {
@@ -27,17 +28,17 @@ function activate(context) {
         let text = editor.document.getText(selection);
         // Display a message box to the user
         vscode.window.showInformationMessage('Selected characters: ' + text.length);
-        gibber.Scheduler.functionsToExecute.push(new loophole.Function(text).bind(gibber.currentTrack));
+        Gibber.Scheduler.functionsToExecute.push(new loophole.Function(text).bind(Gibber.currentTrack));
     });
     context.subscriptions.push(execDisposable);
-    let delayedExecDisposable = vscode.commands.registerCommand('gibberwocky.delayedExecute', function () {
+    let delayedExecDisposable = vscode.commands.registerCommand('Gibberwocky.delayedExecute', function () {
         vscode.window.showInformationMessage('Delayed Execute - TODO');
     });
     context.subscriptions.push(delayedExecDisposable);
-    let clearDisposable = vscode.commands.registerCommand('gibberwocky.clear', function () {
+    let clearDisposable = vscode.commands.registerCommand('Gibberwocky.clear', function () {
         vscode.window.showInformationMessage('Clear - TODO');
         try {
-            gibber.clear();
+            Gibber.clear();
         }
         catch (e) {
             vscode.window.showErrorMessage(e);

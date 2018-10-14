@@ -196,7 +196,7 @@ let Score = {
           //code = funcBody.match(/(?:(?:\(\))*(?:_)*(?:=>)\s*(?:\{)*)([\"\'\.\{\}\(\)\w\d\s\n]+)(?:\})/i)[1]
 
           // TODO: should not be Gibber.currentTrack ?
-          Gibber.Environment.codeMarkup.process( code, pos, Gibber.Environment.codemirror, Gibber.currentTrack )
+          // Gibber.Environment.codeMarkup.process( code, pos, Gibber.Environment.codemirror, Gibber.currentTrack )
 
           if( typeof this.onadvance === 'function' ) this.onadvance( this.index - 1 )
         }

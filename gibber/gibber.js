@@ -1,5 +1,4 @@
-with(window)
-{
+var window = {};
 let Gibber = {
   Utility:       require( './utility.js' ),
   Communication: require( './communication.js' ),
@@ -20,30 +19,30 @@ let Gibber = {
   max:           null,
   '$':           null,
 
-  export() {
-    window.Steps         = this.Steps
-    window.HexSteps      = this.HexSteps
-    window.Automata      = this.Automata
-    window.Seq           = this.Seq
-    window.Score         = this.Score
-    window.Track         = this.Track
-    window.Scheduler     = this.Scheduler
-    window.Pattern       = this.Pattern
-    window.Euclid        = this.Euclid
-    window.Hex           = this.Hex
-    window.Arp           = this.Arp
-    window.Communication = this.Communication
-    window.log           = this.log
-    window.clear         = this.clear
-    window.Theory        = this.Theory
-    window.Lookup        = this.WavePattern
-    window.channels      = this.MIDI.channels
-    window.MIDI          = this.MIDI
+  export( target=window ) {
+    target.Steps         = this.Steps
+    target.HexSteps      = this.HexSteps
+    target.Automata      = this.Automata
+    target.Seq           = this.Seq
+    target.Score         = this.Score
+    target.Track         = this.Track
+    target.Scheduler     = this.Scheduler
+    target.Pattern       = this.Pattern
+    target.Euclid        = this.Euclid
+    target.Hex           = this.Hex
+    target.Arp           = this.Arp
+    target.Communication = this.Communication
+    target.log           = this.log
+    target.clear         = this.clear
+    target.Theory        = this.Theory
+    target.Lookup        = this.WavePattern
+    target.channels      = this.MIDI.channels
+    target.MIDI          = this.MIDI
 
-    Gibber.__gen.export( window ) 
+    Gibber.__gen.export( target ) 
 
-    this.Theory.export( window )
-    this.Utility.export( window )
+    this.Theory.export( target )
+    this.Utility.export( target )
   },
 
   init() {
@@ -52,12 +51,11 @@ let Gibber = {
 
 
     this.Theory.init( Gibber )
-    this.log = this.Environment.log
 
-    if( this.Environment.debug ) {
+    if(  false) {//this.Environment.debug ) {
       this.Scheduler.mockRun()
     }else{
-      this.MIDI.init( Gibber )
+      // this.MIDI.init( Gibber )
       this.Communication.init( Gibber ) 
     }
 
@@ -81,7 +79,6 @@ let Gibber = {
     if( target[ key ] !== undefined ) {
       delete target[ key ]
     }
-
     let proxy = null
     Object.defineProperty( target, key, {
       configurable:true,
@@ -142,7 +139,6 @@ let Gibber = {
     }, 250 )
 
     Gibber.Gen.clear()
-    Gibber.Environment.clear()
     Gibber.publish( 'clear' )
     Gibber.initSingletons( window )
   },
@@ -351,11 +347,11 @@ let Gibber = {
                 Gibber.Communication.send( `set ${parameter.id} ${_v.shouldKill.final}` )
               }
               
-              let widget = Gibber.Environment.codeMarkup.waveform.widgets[ parameter.id ]
-              if( widget !== undefined && widget.mark !== undefined ) {
-                widget.mark.clear()
-              }
-              delete Gibber.Environment.codeMarkup.waveform.widgets[ parameter.id ]
+              // let widget = Gibber.Environment.codeMarkup.waveform.widgets[ parameter.id ]
+              // if( widget !== undefined && widget.mark !== undefined ) {
+              //   widget.mark.clear()
+              // }
+              // delete Gibber.Environment.codeMarkup.waveform.widgets[ parameter.id ]
             }, _v.shouldKill.after )
           }
           
@@ -366,11 +362,11 @@ let Gibber = {
               Gibber.Communication.send( `ungen ${parameter.id}` )
             }
 
-            let widget = Gibber.Environment.codeMarkup.waveform.widgets[ parameter.id ]
-            if( widget !== undefined && widget.mark !== undefined ) {
-              widget.mark.clear()
-            }
-            delete Gibber.Environment.codeMarkup.waveform.widgets[ parameter.id ]
+            // let widget = Gibber.Environment.codeMarkup.waveform.widgets[ parameter.id ]
+            // if( widget !== undefined && widget.mark !== undefined ) {
+            //   widget.mark.clear()
+            // }
+            // delete Gibber.Environment.codeMarkup.waveform.widgets[ parameter.id ]
           }
 
           v = typeof _v === 'object' && _v.isGen ? ( hasGen === true ? _v.render( 'gen' ) : _v.render('genish') ) : _v
@@ -461,13 +457,13 @@ let Gibber = {
         }else{
           // if there was a gen assigned and now a number is being assigned...
           if( v.isGen ) { 
-            console.log( 'removing gen', v )
-            let widget = Gibber.Environment.codeMarkup.genWidgets[ v.id ]
+            // console.log( 'removing gen', v )
+            // let widget = Gibber.Environment.codeMarkup.genWidgets[ v.id ]
 
-            if( widget !== undefined && widget.mark !== undefined ) {
-              widget.mark.clear()
-            }
-            delete Gibber.Environment.codeMarkup.genWidgets[ v.id ]
+            // if( widget !== undefined && widget.mark !== undefined ) {
+            //   widget.mark.clear()
+            // }
+            // delete Gibber.Environment.codeMarkup.genWidgets[ v.id ]
 
           }
 
@@ -514,10 +510,8 @@ Gibber.Track   = require( './track.js')( Gibber )
 Gibber.__gen   = require( './gen_abstraction.js' )( Gibber )
 
 Gibber.Channel = require( './channel.js' )( Gibber )
-Gibber.MIDI    = require( './midi.js' )
+// Gibber.MIDI    = require( './midi.js' )
 Gibber.WavePattern = require( './wavePattern.js' )( Gibber )
 
 Gibber.Gen = Gibber.__gen.gen
 module.exports = Gibber
-
-}
