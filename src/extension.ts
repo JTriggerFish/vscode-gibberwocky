@@ -8,9 +8,9 @@ type Window = {
 };
 declare var window: Window;
 
-const gibber = require('../gibber/gibber')
+const gibber = require('../gibber/gibber');
 import LomTree from './lomTree';
-const loophole = require('loophole')
+const loophole = require('loophole');
 
 
 // this method is called when your extension is activated
