@@ -62,7 +62,7 @@
             ]
         },
         "views": {
-            "lom-view": [
+            "lomView": [
                 {
                     "id": "lomTree",
                     "name": "Live object tree"
