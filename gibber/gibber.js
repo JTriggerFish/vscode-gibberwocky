@@ -1,4 +1,5 @@
 var global = require('./global.js')
+const vscode = require('vscode')
 
 let Gibber = {
   Utility:       require( './utility.js' ),
@@ -68,6 +69,9 @@ let Gibber = {
     this.__gen.init( this )
 
     this.export()
+  },
+  log(message) {
+    vscode.window.showInformationMessage(message);
   },
 
   singleton( target, key ) {

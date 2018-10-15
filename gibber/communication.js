@@ -1,5 +1,5 @@
 let Gibber = null
-let WebSocket = require('websocket').client;
+let W3CWebSocket = require('websocket').w3cwebsocket;
 
 let Communication = {
   webSocketPort: 8081, // default?
@@ -13,7 +13,7 @@ let Communication = {
   init(_Gibber) {
     Gibber = _Gibber
     this.createWebSocket()
-    this.send = this.send.bind(Communication)
+    this.send = this.wsocket.send.bind(Communication)
   },
 
   createWebSocket() {
@@ -31,9 +31,9 @@ let Communication = {
         port =  '8081',
         address = "ws://" + host + ":" + port
 
-      this.wsocket = new WebSocket(address)
+      this.wsocket = new W3CWebSocket(address);
 
-      this.wsocket.on('connect',  function (ev) {
+      this.wsocket.onopen =  function (ev) {
         //Gibber.log( 'CONNECTED to ' + address )
         Gibber.log('gibberwocky is ready to burble.')
         this.connected = true
@@ -44,9 +44,9 @@ let Communication = {
 
         // apparently this first reply is necessary
         this.wsocket.send('update on')
-      }.bind(Communication));
+      }.bind(Communication);
 
-      this.wsocket.on('close' , function (ev) {
+      this.wsocket.onclose = function (ev) {
         if (this.connected) {
           Gibber.log('disconnected from ' + address)
           this.connectMsg = null
@@ -55,18 +55,18 @@ let Communication = {
 
         // set up an auto-reconnect task:
         this.connectTask = setTimeout(this.createWebSocket.bind(Communication), 1000)
-      }.bind(Communication));
+      }.bind(Communication);
 
-      this.wsocket.on('message' , function (ev) {
+      this.wsocket.onmessage = function (ev) {
         //Gibber.log('msg:', ev )
         this.handleMessage(ev)
-      }.bind(Communication));
+      }.bind(Communication);
 
-      this.wsocket.on('error' , function (ev) {
+      this.wsocket.onerror = function (ev) {
         Gibber.log('WebSocket error')
-      }.bind(Communication));
+      }.bind(Communication);
 
-      this.wsocket.connect(address);
+      this.wsocket.connect();
 
     } else {
       post('WebSockets are not available in this browser!!!');
