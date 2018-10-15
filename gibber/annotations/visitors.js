@@ -17,7 +17,7 @@ module.exports = function( Marker ) {
         // if standalone object (Steps, Arp, Score etc.)
         if( Marker.standalone[ expression.right.callee.name ] ) {
 
-          const obj = window[ expression.left.name ]
+          const obj = global.shared[ expression.left.name ]
           if( obj.markup === undefined ) Marker.prepareObject( obj )
 
           Marker.standalone[ expression.right.callee.name ]( 

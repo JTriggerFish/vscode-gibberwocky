@@ -1,3 +1,5 @@
+
+var global = require('./global.js')
 const Utility = require( '../../utility.js' )
 const $ = Utility.create
 
@@ -24,7 +26,7 @@ module.exports = function( node, cm, track, objectName, vOffset=0 ) {
   $( '.' + lastClass ).add( 'scoreCurrentIndex' )
   // TODO: global object usage is baaaad methinks?
   
-  window[ objectName ].onadvance = ( idx ) => {
+  global.shared[ objectName ].onadvance = ( idx ) => {
     $( '.' + lastClass ).remove( 'scoreCurrentIndex' )
     lastClass = `score${idx}`
     $( '.' + lastClass ).add( 'scoreCurrentIndex' ) 

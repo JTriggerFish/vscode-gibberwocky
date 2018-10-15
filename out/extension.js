@@ -1,7 +1,7 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
+var global = require('../gibber/global.js');
 const vscode = require("vscode");
-// let window: Window = {Gibber:null};
 const Gibber = require('../gibber/gibber');
 const lomTree_1 = require("./lomTree");
 const loophole = require('loophole');
@@ -14,11 +14,11 @@ function activate(context) {
         vscode.window.showInformationMessage(message);
     };
     Gibber.Communication.init(Gibber);
-    window.Gibber = Gibber;
+    global.shared.Gibber = Gibber;
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
-    let execDisposable = vscode.commands.registerCommand('Gibberwocky.execute', function () {
+    let execDisposable = vscode.commands.registerCommand('gibberwocky.execute', function () {
         vscode.window.showInformationMessage('Gibberwocky Execute');
         let editor = vscode.window.activeTextEditor;
         if (!editor) {
@@ -31,11 +31,11 @@ function activate(context) {
         Gibber.Scheduler.functionsToExecute.push(new loophole.Function(text).bind(Gibber.currentTrack));
     });
     context.subscriptions.push(execDisposable);
-    let delayedExecDisposable = vscode.commands.registerCommand('Gibberwocky.delayedExecute', function () {
+    let delayedExecDisposable = vscode.commands.registerCommand('gibberwocky.delayedExecute', function () {
         vscode.window.showInformationMessage('Delayed Execute - TODO');
     });
     context.subscriptions.push(delayedExecDisposable);
-    let clearDisposable = vscode.commands.registerCommand('Gibberwocky.clear', function () {
+    let clearDisposable = vscode.commands.registerCommand('gibberwocky.clear', function () {
         vscode.window.showInformationMessage('Clear - TODO');
         try {
             Gibber.clear();

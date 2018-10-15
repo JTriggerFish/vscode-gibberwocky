@@ -1,3 +1,5 @@
+
+var global = require('./global.js')
 const Utility = require( '../../utility.js' )
 const $ = Utility.create
 
@@ -38,7 +40,7 @@ module.exports = function( node, cm, track, objectName, state, cb ) {
 
       let count = 0, span, update,
         _key = steps[ key ].key.value,
-        patternObject = window[ objectName ].seqs[ _key ].values
+        patternObject = global.shared[ objectName ].seqs[ _key ].values
 
       update = () => {
         let currentIdx = update.currentIndex // count++ % step.value.length

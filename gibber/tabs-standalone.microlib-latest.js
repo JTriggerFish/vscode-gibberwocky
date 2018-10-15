@@ -1,3 +1,5 @@
+
+var global = require('./global.js')
 /**
  * MicroLib-Utils is the utility library for other MicroLib libraries. It provides
  * helper methods for common tasks such as adding, checking and removing classes.
@@ -200,5 +202,5 @@ MicroTabs.prototype._processClick = function _processClick(e) {
     this.onChange(element, e.target, e);
 };
 
-window.ML = window.ML || {};
-window.ML.Tabs = MicroTabs;
+global.shared.ML = global.shared.ML || {};
+global.shared.ML.Tabs = MicroTabs;

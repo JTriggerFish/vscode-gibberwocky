@@ -1,3 +1,4 @@
+var global = require('./global.js')
 module.exports = function( Gibber ) {
 
 let Live = {
@@ -38,9 +39,9 @@ let Live = {
       Live.tracks[ track.spec.name ] = track
     }
     
-    window.tracks  = Live.tracks
-    window.master  = Live.master
-    window.returns = Live.returns
+    global.shared.tracks  = Live.tracks
+    global.shared.master  = Live.master
+    global.shared.returns = Live.returns
 
     Gibber.Scheduler.bpm = Live.LOM.bpm
 

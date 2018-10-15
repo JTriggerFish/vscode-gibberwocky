@@ -1,3 +1,5 @@
+
+var global = require('./global.js')
 const acorn = require( 'acorn' )
 const walk  = require( 'acorn/dist/walk' )
 const Utility = require( './utility.js' )
@@ -37,7 +39,7 @@ const Marker = {
   },
 
   getObj( path, findSeq = false, seqNumber = 0 ) {
-    let obj = window[ path[0] ]
+    let obj = global.shared[ path[0] ]
 
     for( let i = 1; i < path.length; i++ ) {
       const key = path[ i ]
@@ -109,7 +111,7 @@ const Marker = {
     // check to see if a given object is a proxy that already has
     // a widget created; if so, don't make another one!
     if( node.type === 'AssignmentExpression' ) {
-      const __obj = window[ node.left.name ]
+      const __obj = global.shared[ node.left.name ]
 
       if( __obj !== undefined ) {
         if( __obj.widget !== undefined ) {

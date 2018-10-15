@@ -1,3 +1,5 @@
+
+var global = require('./global.js')
 module.exports = function( Gibber ) {
 
 const noteon  = 0x90,
@@ -23,7 +25,7 @@ let Channel = {
         const notenum = doNotConvert === true ? num : Gibber.Theory.Note.convertToMIDI( num )
         
         let msg = [ 0x90 + channel.number, notenum, channel.__velocity ]
-        const baseTime = offset !== null ? window.performance.now() + offset : window.performance.now()
+        const baseTime = offset !== null ? global.shared.performance.now() + offset : global.shared.performance.now()
 
         Gibber.MIDI.send( msg, baseTime )
         msg[0] = 0x80 + channel.number
@@ -35,7 +37,7 @@ let Channel = {
 
       midinote( num, offset=null ) {
         let msg = [ 0x90 + channel.number, num, channel.__velocity ]
-        const baseTime = offset !== null ? window.performance.now() + offset : window.performance.now()
+        const baseTime = offset !== null ? global.shared.performance.now() + offset : global.shared.performance.now()
 
         Gibber.MIDI.send( msg, baseTime )
         msg[0] = 0x80 + channel.number
@@ -113,7 +115,7 @@ let Channel = {
       const ccnum = i
       channel[ 'cc'+ccnum ] = ( val, offset = null ) => {
         let msg = [ 0xb0 + channel.number, ccnum, val ]
-        const baseTime = offset !== null ? window.performance.now() + offset : window.performance.now()
+        const baseTime = offset !== null ? global.shared.performance.now() + offset : global.shared.performance.now()
 
         Gibber.MIDI.send( msg, baseTime )
       }

@@ -1,4 +1,5 @@
-var window = {};
+var global = require('./global.js')
+
 let Gibber = {
   Utility:       require( './utility.js' ),
   Communication: require( './communication.js' ),
@@ -19,7 +20,7 @@ let Gibber = {
   max:           null,
   '$':           null,
 
-  export( target=window ) {
+  export( target=global.shared ) {
     target.Steps         = this.Steps
     target.HexSteps      = this.HexSteps
     target.Automata      = this.Automata
@@ -36,7 +37,8 @@ let Gibber = {
     target.clear         = this.clear
     target.Theory        = this.Theory
     target.Lookup        = this.WavePattern
-    target.channels      = this.MIDI.channels
+    //Midi is disabled for now since the original implementation relies on the browser
+    //target.channels      = this.MIDI.channels
     target.MIDI          = this.MIDI
 
     Gibber.__gen.export( target ) 
@@ -46,7 +48,7 @@ let Gibber = {
   },
 
   init() {
-    this.max = window.max
+    this.max = global.shared.max
     this.$   = Gibber.Utility.create
 
 
@@ -61,7 +63,7 @@ let Gibber = {
 
     //this.currentTrack = this.Track( this, 1 ) // TODO: how to determine actual "id" from Max?
     
-    this.initSingletons( window )
+    this.initSingletons( global.shared )
 
     this.__gen.init( this )
 
@@ -140,7 +142,7 @@ let Gibber = {
 
     Gibber.Gen.clear()
     Gibber.publish( 'clear' )
-    Gibber.initSingletons( window )
+    Gibber.initSingletons( global.shared )
   },
 
   createPubSub() {
@@ -393,7 +395,7 @@ let Gibber = {
 
     Gibber.Seq.proto.externalMessages[ seqKey ] = ( val, offset=null ) => {
       let msg = [ 0xb0 + channel, ccnum, val ]
-      const baseTime = offset !== null ? window.performance.now() + offset : window.performance.now()
+      const baseTime = offset !== null ? global.shared.performance.now() + offset : global.shared.performance.now()
 
       Gibber.MIDI.send( msg, baseTime )
     }

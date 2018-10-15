@@ -1,3 +1,5 @@
+
+var global = require('./global.js')
 require( 'babel-polyfill' )
 
 let Gibber = require( './gibber.js' ),
@@ -5,4 +7,4 @@ let Gibber = require( './gibber.js' ),
     count = 0
    
 Gibber.init()
-window.Gibber = Gibber
+global.shared.Gibber = Gibber

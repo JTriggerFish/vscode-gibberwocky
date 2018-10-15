@@ -1,4 +1,5 @@
 const Queue = require( './priorityqueue.js' )
+var global = require('./global.js')
 
 let Scheduler = {
   currentTime : performance.now(),
@@ -10,7 +11,7 @@ let Scheduler = {
   },
 
   init() {
-    window.requestAnimationFrame( this.onAnimationFrame ) 
+    global.shared.requestAnimationFrame( this.onAnimationFrame ) 
   },
 
   clear() {
@@ -60,7 +61,7 @@ let Scheduler = {
   },
 
   onAnimationFrame( timestamp ) {
-    window.requestAnimationFrame( this.onAnimationFrame )
+    global.shared.requestAnimationFrame( this.onAnimationFrame )
     const diff = timestamp - this.currentTime
     this.currentTime = timestamp
     this.visualizationTime.phase += diff 

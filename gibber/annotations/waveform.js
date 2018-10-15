@@ -1,3 +1,5 @@
+
+var global = require('./global.js')
 const COLORS = {
   FILL:'rgba(46,50,53,1)',
   STROKE:'#aaa',
@@ -18,7 +20,7 @@ const Waveform = {
     widget.style.display = 'inline-block'
     widget.style.verticalAlign = 'middle'
     widget.style.height = '1.1em'
-    widget.style.width = ((widget.padding * 2 + widget.waveWidth) * window.devicePixelRation ) + 'px'
+    widget.style.width = ((widget.padding * 2 + widget.waveWidth) * global.shared.devicePixelRation ) + 'px'
     widget.style.backgroundColor = 'transparent'
     widget.style.margin = '0 1em'
     //widget.style.borderLeft = '1px solid #666'
@@ -39,7 +41,7 @@ const Waveform = {
       if( node.expression !== undefined && node.expression.type === 'AssignmentExpression' ) {
         isAssignment = true
         
-        widget.gen = window[ node.expression.left.name ]
+        widget.gen = global.shared[ node.expression.left.name ]
 
         if( widget.gen.widget !== undefined ) {
           widget.gen.widget.parentNode.removeChild( widget.gen.widget )
@@ -49,7 +51,7 @@ const Waveform = {
         const state = cm.__state
         
         if( node.callee.name !== 'Lookup' ) {
-          const track  = window[ state[0] ][ state[1] ]
+          const track  = global.shared[ state[0] ][ state[1] ]
 
           const seq = track[ node.callee.object.property.value][ node.arguments[2].value ] 
 
@@ -69,7 +71,7 @@ const Waveform = {
     }else{
       if( widget.gen.widget !== undefined && widget.gen.widget !== widget ) {
         isAssignment = true
-        //widget.gen = window[ node.expression.left.name ]
+        //widget.gen = global.shared[ node.expression.left.name ]
       }
     }
 

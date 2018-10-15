@@ -161,7 +161,7 @@ let Communication = {
   querystring: null,
 }
 
-// let qstr = window.location.search,
+// let qstr = global.shared.location.search,
 //   query = {},
 //   a = qstr.substr(1).split('&')
 

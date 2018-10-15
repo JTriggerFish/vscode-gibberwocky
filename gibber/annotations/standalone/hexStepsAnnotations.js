@@ -1,6 +1,7 @@
 const Utility = require( '../../utility.js' )
 const $ = Utility.create
 const EuclidAnnotation = require( '../update/euclidAnnotation.js' )
+var global = require('./global.js')
 
 
 // const Identifier = function( patternNode, state, seq, patternType, containerNode, seqNumber ) {
@@ -43,7 +44,7 @@ module.exports = function( node, cm, track, objectName, state, cb ) {
 
       let count = 0, span, update,
         _key = steps[ key ].key.value,
-        patternObject = window[ objectName ].seqs[ _key ].values
+        patternObject = global.shared[ objectName ].seqs[ _key ].values
 
       update = () => {
         let currentIdx = update.currentIndex // count++ % step.value.length

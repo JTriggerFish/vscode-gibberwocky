@@ -1,11 +1,7 @@
 'use strict';
+
+var global = require('../gibber/global.js');
 import * as vscode from 'vscode';
-
-//Hack to make use of global variables in Gibberwocky work ?
-/*global window*/
-declare var window: any;
-
-// let window: Window = {Gibber:null};
 
 const Gibber = require('../gibber/gibber');
 import LomTree from './lomTree';
@@ -23,12 +19,12 @@ export function activate(context: vscode.ExtensionContext) {
       vscode.window.showInformationMessage(message);
     }
     Gibber.Communication.init(Gibber);
-    window.Gibber = Gibber;
+    global.shared.Gibber = Gibber;
 
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
-    let execDisposable = vscode.commands.registerCommand('Gibberwocky.execute', function () {
+    let execDisposable = vscode.commands.registerCommand('gibberwocky.execute', function () {
         vscode.window.showInformationMessage('Gibberwocky Execute');
         let editor = vscode.window.activeTextEditor;
         if (!editor) {
@@ -45,13 +41,13 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(execDisposable);
 
-    let delayedExecDisposable = vscode.commands.registerCommand('Gibberwocky.delayedExecute', function () {
+    let delayedExecDisposable = vscode.commands.registerCommand('gibberwocky.delayedExecute', function () {
         vscode.window.showInformationMessage('Delayed Execute - TODO');
     });
 
     context.subscriptions.push(delayedExecDisposable);
 
-    let clearDisposable = vscode.commands.registerCommand('Gibberwocky.clear', function () {
+    let clearDisposable = vscode.commands.registerCommand('gibberwocky.clear', function () {
         vscode.window.showInformationMessage('Clear - TODO');
         try {
             Gibber.clear()
