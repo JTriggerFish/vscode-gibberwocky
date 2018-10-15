@@ -35,14 +35,14 @@
         "keybindings": [
             {
                 "command": "gibberwocky.execute",
-                "key": "ctrl+enter",
-                "mac": "cmd+enter",
+                "key": "ctrl+shift+enter",
+                "mac": "cmd+shift+enter",
                 "when": "editorTextFocus"
             },
             {
                 "command": "gibberwocky.delayedExecute",
-                "key": "ctrl+shift+enter",
-                "mac": "cmd+shift+enter",
+                "key": "ctrl+enter",
+                "mac": "cmd+enter",
                 "when": "editorTextFocus"
             },
             {
@@ -79,7 +79,7 @@
     },
     "dependencies": {
         "big.js": "^5.2.1",
-        "genish.js": "^0.2.5",
+        "genish.js": "^0.2.6",
         "loophole": "^1.1.0",
         "websocket": "^1.0.28"
     },
