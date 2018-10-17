@@ -25,6 +25,7 @@ function activate(context) {
         }
         let selection = editor.selection;
         let text = editor.document.getText(selection);
+        text = "with(global.shared){\n" + text + "\n}";
         try {
             Gibber.Scheduler.functionsToExecute.push(new loophole.Function(text).bind(Gibber.currentTrack));
             //             Environment.flash( cm, selectedCode.selection )
@@ -58,6 +59,7 @@ function activate(context) {
         let text = editor.document.getText(selection);
         // Display a message box to the user
         //vscode.window.showInformationMessage('Selected : ' + text.length);
+        text = "with(global.shared){\n" + text + "\n}";
         try {
             const func = new loophole.Function(text);
             // Environment.flash( cm, selectedCode.selection )

@@ -18,7 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
     Gibber.init();
     Gibber.log = (message: string) => {
       vscode.window.showInformationMessage(message);
-    }
+    };
 
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
@@ -32,6 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         let selection = editor.selection;
         let text = editor.document.getText(selection);
+        text = "with(global.shared){\n" + text + "\n}";
 
         try{
             Gibber.Scheduler.functionsToExecute.push(new loophole.Function(text).bind(Gibber.currentTrack));
@@ -72,6 +73,8 @@ export function activate(context: vscode.ExtensionContext) {
 
         // Display a message box to the user
         //vscode.window.showInformationMessage('Selected : ' + text.length);
+
+        text = "with(global.shared){\n" + text + "\n}";
 
         try{
             const func = new loophole.Function(text);
