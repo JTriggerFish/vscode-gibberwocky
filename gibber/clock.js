@@ -1,5 +1,6 @@
 const Queue = require( './priorityqueue.js' )
 const Big   = require('big.js')
+let Gibber = null;
 
 let Scheduler = {
   phase: 0,
@@ -26,6 +27,9 @@ let Scheduler = {
       this.seq( this.mockBeat++ % 8 )
     } 
     this.mockInterval = setInterval( seqFunc, 500 )
+  },
+  init(_Gibber) {
+    Gibber = _Gibber
   },
 
   // all ticks take the form of { time:timeInSamples, seq:obj }

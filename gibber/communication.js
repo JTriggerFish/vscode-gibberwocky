@@ -12,66 +12,67 @@ let Communication = {
 
   init(_Gibber) {
     Gibber = _Gibber
-    this.createWebSocket()
-    this.send = this.wsocket.send.bind(Communication)
+    this.createWebSocket().then( function() {
+      this.send = this.wsocket.send.bind(Communication);
+      Gibber.Live.init();
+    });
+
   },
 
   createWebSocket() {
-    if (this.connected) return
+    return new Promise(function() {
+      if (this.connected) return
 
-    if (true) {
-      //Gibber.log( 'Connecting' , this.querystring.host, this.querystring.port )
-      if (this.connectMsg === null) {
-        this.connectMsg = 'connecting';
-      } else {
-        this.connectMsg += '.'
-      }
-
-      let host = '127.0.0.1',
-        port =  '8081',
-        address = "ws://" + host + ":" + port
-
-      this.wsocket = new W3CWebSocket(address);
-
-      this.wsocket.onopen =  function (ev) {
-        //Gibber.log( 'CONNECTED to ' + address )
-        Gibber.log('gibberwocky is ready to burble.')
-        this.connected = true
-
-        Gibber.Live.init()
-        // cancel the auto-reconnect task:
-        if (this.connectTask !== undefined) clearTimeout(this.connectTask)
-
-        // apparently this first reply is necessary
-        this.wsocket.send('update on')
-      }.bind(Communication);
-
-      this.wsocket.onclose = function (ev) {
-        if (this.connected) {
-          Gibber.log('disconnected from ' + address)
-          this.connectMsg = null
-          this.connected = false
+      if (true) {
+        //Gibber.log( 'Connecting' , this.querystring.host, this.querystring.port )
+        if (this.connectMsg === null) {
+          this.connectMsg = 'connecting';
+        } else {
+          this.connectMsg += '.'
         }
 
-        // set up an auto-reconnect task:
-        this.connectTask = setTimeout(this.createWebSocket.bind(Communication), 1000)
-      }.bind(Communication);
+        let host = '127.0.0.1',
+          port = '8081',
+          address = "ws://" + host + ":" + port
 
-      this.wsocket.onmessage = function (ev) {
-        //Gibber.log('msg:', ev )
-        this.handleMessage(ev)
-      }.bind(Communication);
+        this.wsocket = new W3CWebSocket(address);
 
-      this.wsocket.onerror = function (ev) {
-        console.log('WebSocket error')
-      }.bind(Communication);
+        this.wsocket.onopen = function (ev) {
+          //Gibber.log( 'CONNECTED to ' + address )
+          Gibber.log('gibberwocky is ready to burble.')
+          this.connected = true
+
+          // cancel the auto-reconnect task:
+          if (this.connectTask !== undefined) clearTimeout(this.connectTask)
+
+        }.bind(Communication);
+
+        this.wsocket.onclose = function (ev) {
+          if (this.connected) {
+            Gibber.log('disconnected from ' + address)
+            this.connectMsg = null
+            this.connected = false
+          }
+
+          // set up an auto-reconnect task:
+          this.connectTask = setTimeout(this.createWebSocket.bind(Communication), 1000)
+        }.bind(Communication);
+
+        this.wsocket.onmessage = function (ev) {
+          //Gibber.log('msg:', ev )
+          this.handleMessage(ev)
+        }.bind(Communication);
+
+        this.wsocket.onerror = function (ev) {
+          console.log('WebSocket error')
+        }.bind(Communication);
 
 
-    } else {
-      post('WebSockets are not available in this browser!!!');
-    }
+      } else {
+        post('WebSockets are not available in this browser!!!');
+      }
 
-  },
+  })},
 
   callbacks: {},
 

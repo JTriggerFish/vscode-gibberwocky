@@ -14,12 +14,11 @@ export function activate(context: vscode.ExtensionContext) {
 
     console.log('vscode-Gibberwocky is now active!');
 
+    global.shared.Gibber = Gibber;
     Gibber.init();
     Gibber.log = (message: string) => {
       vscode.window.showInformationMessage(message);
     }
-    Gibber.Communication.init(Gibber);
-    global.shared.Gibber = Gibber;
 
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand

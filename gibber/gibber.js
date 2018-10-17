@@ -53,13 +53,20 @@ let Gibber = {
     this.$   = Gibber.Utility.create
 
 
+    // this.Environment.init( Gibber )
     this.Theory.init( Gibber )
+
+
+    this.log = (message) => {
+      console.log(message);
+    }
 
     if(  false) {//this.Environment.debug ) {
       this.Scheduler.mockRun()
     }else{
       // this.MIDI.init( Gibber )
-      this.Communication.init( Gibber ) 
+      this.Scheduler.init(Gibber);
+      this.Communication.init( Gibber );
     }
 
     //this.currentTrack = this.Track( this, 1 ) // TODO: how to determine actual "id" from Max?

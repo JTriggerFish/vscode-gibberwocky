@@ -9,12 +9,11 @@ const loophole = require('loophole');
 // your extension is activated the very first time the command is executed
 function activate(context) {
     console.log('vscode-Gibberwocky is now active!');
+    global.shared.Gibber = Gibber;
     Gibber.init();
     Gibber.log = (message) => {
         vscode.window.showInformationMessage(message);
     };
-    Gibber.Communication.init(Gibber);
-    global.shared.Gibber = Gibber;
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
