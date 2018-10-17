@@ -45,7 +45,7 @@ function activate(context) {
             //     Gibber.Scheduler.functionsToExecute.push( markupFunction  )
         }
         catch (e) {
-            vscode.window.showErrorMessage(e);
+            vscode.window.showErrorMessage(e.message);
         }
     });
     context.subscriptions.push(execDisposable);
@@ -65,7 +65,7 @@ function activate(context) {
             func();
         }
         catch (e) {
-            vscode.window.showErrorMessage(e);
+            vscode.window.showErrorMessage(e.message);
         }
     });
     context.subscriptions.push(delayedExecDisposable);
@@ -76,7 +76,7 @@ function activate(context) {
             Gibber.log('All sequencers stopped.');
         }
         catch (e) {
-            vscode.window.showErrorMessage(e);
+            vscode.window.showErrorMessage(e.message);
         }
     });
     context.subscriptions.push(clearDisposable);

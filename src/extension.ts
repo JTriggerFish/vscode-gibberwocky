@@ -55,7 +55,7 @@ export function activate(context: vscode.ExtensionContext) {
         //   if( Environment.annotations === true )
         //     Gibber.Scheduler.functionsToExecute.push( markupFunction  )
         }catch(e) {
-            vscode.window.showErrorMessage(e);
+            vscode.window.showErrorMessage(e.message);
         }
     });
 
@@ -79,7 +79,7 @@ export function activate(context: vscode.ExtensionContext) {
             // Environment.flash( cm, selectedCode.selection )
             func();
         }catch(e) {
-            vscode.window.showErrorMessage(e);
+            vscode.window.showErrorMessage(e.message);
         }
     });
 
@@ -91,7 +91,7 @@ export function activate(context: vscode.ExtensionContext) {
             Gibber.clear();
             Gibber.log( 'All sequencers stopped.' );
         } catch (e) {
-            vscode.window.showErrorMessage(e);
+            vscode.window.showErrorMessage(e.message);
         }
     });
 

@@ -24,7 +24,7 @@ let Communication = {
       if (this.connectMsg === null) {
         this.connectMsg = 'connecting';
       } else {
-        this.connectMsg.innerText += '.'
+        this.connectMsg += '.'
       }
 
       let host = '127.0.0.1',
@@ -63,10 +63,9 @@ let Communication = {
       }.bind(Communication);
 
       this.wsocket.onerror = function (ev) {
-        Gibber.log('WebSocket error')
+        console.log('WebSocket error')
       }.bind(Communication);
 
-      this.wsocket.connect();
 
     } else {
       post('WebSockets are not available in this browser!!!');
