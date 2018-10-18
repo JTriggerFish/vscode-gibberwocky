@@ -1,5 +1,5 @@
 let Gibber = null
-let W3CWebSocket = require('websocket').w3cwebsocket;
+let WebSocket = require('ws');
 
 let Communication = {
   webSocketPort: 8081, // default?
@@ -12,16 +12,12 @@ let Communication = {
 
   init(_Gibber) {
     Gibber = _Gibber
-    this.createWebSocket()
-    .then( function() {
-      this.send = this.wsocket.send.bind(Communication);
-      Gibber.Live.init();
-    });
-
+    this.createWebSocket();
+    this.send = this.send.bind(Communication);
   },
 
   createWebSocket() {
-    return new Promise(function() {
+
       if (this.connected) return
 
       //Gibber.log( 'Connecting' , this.querystring.host, this.querystring.port )
@@ -35,9 +31,9 @@ let Communication = {
         port = '8081',
         address = "ws://" + host + ":" + port
 
-      this.wsocket = new W3CWebSocket(address);
+      this.wsocket = new WebSocket(address);
 
-      this.wsocket.onopen = function (ev) {
+      this.wsocket.on('open', function open(ev) {
         //Gibber.log( 'CONNECTED to ' + address )
         Gibber.log('gibberwocky is ready to burble.')
         this.connected = true
@@ -45,9 +41,11 @@ let Communication = {
         // cancel the auto-reconnect task:
         if (this.connectTask !== undefined) clearTimeout(this.connectTask)
 
-      }.bind(Communication);
+        Gibber.Live.init();
 
-      this.wsocket.onclose = function (ev) {
+      }.bind(Communication));
+
+      this.wsocket.on('close', function close(ev) {
         if (this.connected) {
           Gibber.log('disconnected from ' + address)
           this.connectMsg = null
@@ -56,17 +54,16 @@ let Communication = {
 
         // set up an auto-reconnect task:
         this.connectTask = setTimeout(this.createWebSocket.bind(Communication), 1000)
-      }.bind(Communication);
+      }.bind(Communication));
 
-      this.wsocket.onmessage = function (ev) {
+      this.wsocket.on('message', function message (ev) {
         //Gibber.log('msg:', ev )
         this.handleMessage(ev)
-      }.bind(Communication);
+      }.bind(Communication));
 
-      this.wsocket.onerror = function (ev) {
+      this.wsocket.on('error', function error(ev) {
         console.log('WebSocket error')
-      }.bind(Communication);
-    }.bind(Communication));
+      }.bind(Communication));
   },
 
   callbacks: {},
