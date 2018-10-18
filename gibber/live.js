@@ -12,7 +12,8 @@ let Live = {
   returns:[],
   
   handleScene( msg ) {
-    Live.id = Communication.querystring.track
+    // Live.id = Gibber.Communication.querystring.track
+    Live.id = 0; //TODO what is this for ??
 
     Live.LOM = msg
 

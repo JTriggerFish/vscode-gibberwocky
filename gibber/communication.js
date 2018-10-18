@@ -1,5 +1,6 @@
 let Gibber = null
-let WebSocket = require('ws');
+const WebSocket = require('ws');
+const JSON = require('json');
 
 let Communication = {
   webSocketPort: 8081, // default?
@@ -73,14 +74,14 @@ let Communication = {
   handleMessage(_msg) {
     let id, key, data, msg
 
-    if (_msg.data.charAt(0) === '{') {
-      data = _msg.data
+    if (_msg.charAt(0) === '{') {
+      data = _msg
       key = null
       if (Communication.callbacks.scene) {
         Communication.callbacks.scene(JSON.parse(data))
       }
-    } else if (_msg.data.includes('snapshot')) {
-      data = _msg.data.substr(9).split(' ')
+    } else if (_msg.includes('snapshot')) {
+      data = _msg.substr(9).split(' ')
       for (let i = 0; i < data.length; i += 2) {
         let param_id = data[i]
         let param_value = data[i + 1]
@@ -96,7 +97,7 @@ let Communication = {
 
       return
     } else {
-      msg = _msg.data.split(' ')
+      msg = _msg.split(' ')
       id = msg[0]
       key = msg[1]
 
@@ -120,7 +121,7 @@ let Communication = {
     switch (key) {
       case 'seq':
         if (data === undefined) {
-          console.log('faulty ws seq message', _msg.data)
+          console.log('faulty ws seq message', _msg)
         } else {
           Gibber.Scheduler.seq(data);
         }
@@ -135,7 +136,7 @@ let Communication = {
         break;
 
       case 'err':
-        Gibber.Environment.log(data)
+        Gibber.log(data)
         break;
 
       default:
