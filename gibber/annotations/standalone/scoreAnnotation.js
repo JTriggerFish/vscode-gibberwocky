@@ -1,5 +1,5 @@
 
-var global = require('./global.js')
+var global = require('../../global.js')
 const Utility = require( '../../utility.js' )
 const $ = Utility.create
 

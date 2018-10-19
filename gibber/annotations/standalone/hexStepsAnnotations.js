@@ -1,7 +1,7 @@
 const Utility = require( '../../utility.js' )
 const $ = Utility.create
 const EuclidAnnotation = require( '../update/euclidAnnotation.js' )
-var global = require('./global.js')
+var global = require('../../global.js')
 
 
 // const Identifier = function( patternNode, state, seq, patternType, containerNode, seqNumber ) {

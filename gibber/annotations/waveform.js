@@ -1,5 +1,5 @@
 
-var global = require('./global.js')
+var global = require('../global.js')
 const COLORS = {
   FILL:'rgba(46,50,53,1)',
   STROKE:'#aaa',
