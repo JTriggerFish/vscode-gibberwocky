@@ -2,19 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var global = require('../gibber/global.js');
 const vscode = require("vscode");
+const codeMirrorAdapter_1 = require("./codeMirrorAdapter");
 const Gibber = require('../gibber/gibber');
 const lomTree_1 = require("./lomTree");
 const loophole = require('loophole');
-class EditorWrapper {
-    getLine(n) {
-        let editor = vscode.window.activeTextEditor;
-        if (!editor) {
-            return ""; // No open text editor
-        }
-        return editor.document.lineAt(n).text;
-    }
-}
-;
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 function activate(context) {
@@ -40,7 +31,7 @@ function activate(context) {
             Gibber.Scheduler.functionsToExecute.push(new loophole.Function(textF).bind(Gibber.currentTrack));
             //Environment.flash( cm, selectedCode.selection )
             const markupFunction = () => {
-                Gibber.CodeMarkup.process(text, selection.anchor, new EditorWrapper(), Gibber.currentTrack);
+                Gibber.CodeMarkup.process(text, selection.anchor, new codeMirrorAdapter_1.default(), Gibber.currentTrack);
             };
             Gibber.Scheduler.functionsToExecute.push(markupFunction);
         }

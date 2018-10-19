@@ -2,22 +2,12 @@
 
 var global = require('../gibber/global.js');
 import * as vscode from 'vscode';
+import CodeMirrorAdapter from'./codeMirrorAdapter';
 
 const Gibber = require('../gibber/gibber');
 import LomTree from './lomTree';
 const loophole = require('loophole');
 
-class EditorWrapper {
-
-    getLine(n: number) : string
-    {
-        let editor = vscode.window.activeTextEditor;
-        if (!editor) {
-            return ""; // No open text editor
-        }
-        return editor.document.lineAt(n).text;
-    }
-};
 
 
 // this method is called when your extension is activated
@@ -56,7 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
                 Gibber.CodeMarkup.process(
                     text,
                     selection.anchor,
-                    new EditorWrapper(),
+                    new CodeMirrorAdapter(),
                     Gibber.currentTrack
                 );
             };
