@@ -40,7 +40,6 @@ let Gibber = {
     target.Theory        = this.Theory
     target.Lookup        = this.WavePattern
     target.Examples      = this.Examples
-    target.CodeMarkup    = this.CodeMarkup
     //Midi is disabled for now since the original implementation relies on the browser
     //target.channels      = this.MIDI.channels
     target.MIDI          = this.MIDI
@@ -70,6 +69,8 @@ let Gibber = {
       // this.MIDI.init( Gibber )
       this.Scheduler.init(Gibber);
       this.Communication.init( Gibber );
+      this.CodeMarkup = this.CodeMarkup(Gibber);
+      this.CodeMarkup.init();
     }
 
     //this.currentTrack = this.Track( this, 1 ) // TODO: how to determine actual "id" from Max?
