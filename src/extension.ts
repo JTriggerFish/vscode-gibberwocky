@@ -7,6 +7,18 @@ const Gibber = require('../gibber/gibber');
 import LomTree from './lomTree';
 const loophole = require('loophole');
 
+class EditorWrapper {
+
+    getLine(n: number) : string
+    {
+        let editor = vscode.window.activeTextEditor;
+        if (!editor) {
+            return ""; // No open text editor
+        }
+        return editor.document.lineAt(n).text;
+    }
+};
+
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -44,7 +56,7 @@ export function activate(context: vscode.ExtensionContext) {
                 Gibber.CodeMarkup.process(
                     text,
                     selection.anchor,
-                    undefined, // originally codemirror, TODO: replace with vscode constructs
+                    new EditorWrapper(),
                     Gibber.currentTrack
                 );
             };

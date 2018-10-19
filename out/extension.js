@@ -5,6 +5,16 @@ const vscode = require("vscode");
 const Gibber = require('../gibber/gibber');
 const lomTree_1 = require("./lomTree");
 const loophole = require('loophole');
+class EditorWrapper {
+    getLine(n) {
+        let editor = vscode.window.activeTextEditor;
+        if (!editor) {
+            return ""; // No open text editor
+        }
+        return editor.document.lineAt(n).text;
+    }
+}
+;
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 function activate(context) {
@@ -30,8 +40,7 @@ function activate(context) {
             Gibber.Scheduler.functionsToExecute.push(new loophole.Function(textF).bind(Gibber.currentTrack));
             //Environment.flash( cm, selectedCode.selection )
             const markupFunction = () => {
-                Gibber.CodeMarkup.process(text, selection.anchor, undefined, // originally codemirror, TODO: replace with vscode constructs
-                Gibber.currentTrack);
+                Gibber.CodeMarkup.process(text, selection.anchor, new EditorWrapper(), Gibber.currentTrack);
             };
             Gibber.Scheduler.functionsToExecute.push(markupFunction);
         }
