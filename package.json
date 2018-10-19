@@ -79,6 +79,8 @@
     },
     "dependencies": {
         "JSON": "^1.0.0",
+        "acorn": "^6.0.2",
+        "acorn-walk": "^6.1.0",
         "big.js": "^5.2.1",
         "genish.js": "^0.2.6",
         "loophole": "^1.1.0",

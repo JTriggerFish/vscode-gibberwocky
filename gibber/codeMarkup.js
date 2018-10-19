@@ -1,7 +1,7 @@
 
 var global = require('./global.js')
 const acorn = require( 'acorn' )
-const walk  = require( 'acorn/dist/walk' )
+const walk  = require( 'acorn-walk')
 const Utility = require( './utility.js' )
 const $ = Utility.create
 
@@ -65,8 +65,8 @@ const Marker = {
     // to use when marking patterns, since acorn will produce
     // relative offsets 
     Marker.offset = {
-      vertical:   position.start.line,
-      horizontal: position.horizontalOffset === undefined ? 0 : position.horizontalOffset
+      vertical:   position.line,
+      horizontal: position.character
     }
 
     const state = []

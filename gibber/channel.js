@@ -103,7 +103,7 @@ let Channel = {
       }
     }
 
-    Gibber.Environment.codeMarkup.prepareObject( channel ) 
+    Gibber.CodeMarkup.prepareObject( channel ) 
     Gibber.addSequencingToMethod( channel, 'note' )
     Gibber.addSequencingToMethod( channel, 'chord' )
     Gibber.addSequencingToMethod( channel, 'velocity', 1 )

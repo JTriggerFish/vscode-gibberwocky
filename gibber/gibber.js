@@ -7,6 +7,7 @@ let Gibber = {
   Scheduler:     require( './clock.js' ),
   Theory:        require( './theory.js' ),
   Examples:      require( './example.js' ),
+  CodeMarkup:    require( './codeMarkup.js' ),
   Live:          null,
   Track:         null,
   Gen:           null,
@@ -38,6 +39,8 @@ let Gibber = {
     target.clear         = this.clear
     target.Theory        = this.Theory
     target.Lookup        = this.WavePattern
+    target.Examples      = this.Examples
+    target.CodeMarkup    = this.CodeMarkup
     //Midi is disabled for now since the original implementation relies on the browser
     //target.channels      = this.MIDI.channels
     target.MIDI          = this.MIDI
@@ -360,11 +363,11 @@ let Gibber = {
                 Gibber.Communication.send( `set ${parameter.id} ${_v.shouldKill.final}` )
               }
               
-              // let widget = Gibber.Environment.codeMarkup.waveform.widgets[ parameter.id ]
+              // let widget = Gibber.CodeMarkup.waveform.widgets[ parameter.id ]
               // if( widget !== undefined && widget.mark !== undefined ) {
               //   widget.mark.clear()
               // }
-              // delete Gibber.Environment.codeMarkup.waveform.widgets[ parameter.id ]
+              // delete Gibber.CodeMarkup.waveform.widgets[ parameter.id ]
             }, _v.shouldKill.after )
           }
           
@@ -375,11 +378,11 @@ let Gibber = {
               Gibber.Communication.send( `ungen ${parameter.id}` )
             }
 
-            // let widget = Gibber.Environment.codeMarkup.waveform.widgets[ parameter.id ]
+            // let widget = Gibber.CodeMarkup.waveform.widgets[ parameter.id ]
             // if( widget !== undefined && widget.mark !== undefined ) {
             //   widget.mark.clear()
             // }
-            // delete Gibber.Environment.codeMarkup.waveform.widgets[ parameter.id ]
+            // delete Gibber.CodeMarkup.waveform.widgets[ parameter.id ]
           }
 
           v = typeof _v === 'object' && _v.isGen ? ( hasGen === true ? _v.render( 'gen' ) : _v.render('genish') ) : _v
@@ -457,11 +460,11 @@ let Gibber = {
           //    Gibber.Communication.send( `ungen ${parameter.id}` )
           //    Gibber.Communication.send( `set ${parameter.id} ${_v.shouldKill.final}` )
 
-          //    let widget = Gibber.Environment.codeMarkup.genWidgets[ parameter.id ]
+          //    let widget = Gibber.CodeMarkup.genWidgets[ parameter.id ]
           //    if( widget !== undefined && widget.mark !== undefined ) {
           //      widget.mark.clear()
           //    }
-          //    delete Gibber.Environment.codeMarkup.genWidgets[ parameter.id ]
+          //    delete Gibber.CodeMarkup.genWidgets[ parameter.id ]
           //  }, _v.shouldKill.after )
           //}
           
@@ -471,12 +474,12 @@ let Gibber = {
           // if there was a gen assigned and now a number is being assigned...
           if( v.isGen ) { 
             // console.log( 'removing gen', v )
-            // let widget = Gibber.Environment.codeMarkup.genWidgets[ v.id ]
+            // let widget = Gibber.CodeMarkup.genWidgets[ v.id ]
 
             // if( widget !== undefined && widget.mark !== undefined ) {
             //   widget.mark.clear()
             // }
-            // delete Gibber.Environment.codeMarkup.genWidgets[ v.id ]
+            // delete Gibber.CodeMarkup.genWidgets[ v.id ]
 
           }
 

@@ -46,7 +46,7 @@ const WavePattern = {
 
       // if we are running the pattern solely to visualize the waveform data...
       if( isViz === true && pattern.vizinit && Gibber.Environment.annotations === true ) {
-        Gibber.Environment.codeMarkup.waveform.updateWidget( abstractGraph.paramID, signalValue, false )
+        Gibber.CodeMarkup.waveform.updateWidget( abstractGraph.paramID, signalValue, false )
       }else if( Gibber.Environment.annotations === true && pattern.widget !== undefined ) {
         // mark the last placed value by the visualization as having a "hit", 
         // which will cause a dot to be drawn on the sparkline.
@@ -166,7 +166,7 @@ const WavePattern = {
     // and then passing that variable as a pattern to a sequence
     if( abstractGraph.widget !== undefined ) {
       pattern.widget = abstractGraph.widget
-      Gibber.Environment.codeMarkup.waveform.widgets[ abstractGraph.paramID ] = pattern.widget
+      Gibber.CodeMarkup.waveform.widgets[ abstractGraph.paramID ] = pattern.widget
     }
 
     Gibber.Gen.connected.push( pattern )

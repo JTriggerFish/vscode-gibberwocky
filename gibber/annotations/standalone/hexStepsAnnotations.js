@@ -7,7 +7,7 @@ var global = require('./global.js')
 // const Identifier = function( patternNode, state, seq, patternType, containerNode, seqNumber ) {
 //module.exports = ( patternObject, marker, className, cm, track ) => {
 module.exports = function( node, cm, track, objectName, state, cb ) {
-  const Marker = Gibber.Environment.codeMarkup 
+  const Marker = Gibber.CodeMarkup 
   const steps = node.arguments[ 0 ].properties
   const Identifier = Marker.patternMarkupFunctions.Identifier
 

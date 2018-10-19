@@ -4,7 +4,7 @@ const Utility = require( '../../utility.js' )
 const $ = Utility.create
 
 module.exports = function( node, cm, track, objectName, state, cb ) {
-  const Marker = Gibber.Environment.codeMarkup // tsk tsk tsk global...
+  const Marker = Gibber.CodeMarkup // tsk tsk tsk global...
   const steps = node.arguments[ 0 ].properties
 
   track.markup.textMarkers[ 'step' ] = []
