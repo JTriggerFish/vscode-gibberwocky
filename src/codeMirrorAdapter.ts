@@ -1,8 +1,17 @@
 import * as vscode from 'vscode';
-import { readdir } from 'fs';
+// import { readdir } from 'fs';
 
+class TextMarkerAdapter {
+    lines: Array<any> = [];
+    type: any;
+    find(): any{
+        console.log("find not implemented");
+    }
+};
 
 class CodeMirrorAdapter {
+
+    __state : any;
 
     getLine(n: number) : string
     {
@@ -23,7 +32,12 @@ class CodeMirrorAdapter {
         editor.edit(editBuilder => {
             editBuilder.replace(new vscode.Range(new vscode.Position(from.line, from.ch),
              new vscode.Position(to.line, to.ch)), replacement);
-            });
+        });
+    }
+    markText(from: { line:number, ch :number}, 
+        to: { line:number, ch:number }, options?: object): TextMarkerAdapter {
+
+        return new TextMarkerAdapter();
     }
 }
 
