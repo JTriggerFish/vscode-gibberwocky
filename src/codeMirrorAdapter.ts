@@ -20,7 +20,10 @@ class CodeMirrorAdapter {
         if (!editor) {
             return; // No open text editor
         }
-        // editor.document.r
+        editor.edit(editBuilder => {
+            editBuilder.replace(new vscode.Range(new vscode.Position(from.line, from.ch),
+             new vscode.Position(to.line, to.ch)), replacement);
+            });
     }
 }
 
