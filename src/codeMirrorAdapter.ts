@@ -1,11 +1,36 @@
 import * as vscode from 'vscode';
 // import { readdir } from 'fs';
 
+class CmPosition {
+    constructor(line: number, ch: number){
+        this.line = line;
+        this.ch = ch;
+    }
+    line!: number;
+    ch!: number;
+}
+
+class CmRange {
+    constructor(from: CmPosition, to: CmPosition) {
+        this.from = from;
+        this.to = to;
+    }
+    from!: CmPosition;
+    to!: CmPosition;
+};
+
 class TextMarkerAdapter {
+    constructor(range: CmRange, options?: object) {
+        this.range = range;
+        this.options = options;
+    }
     lines: Array<any> = [];
     type: any;
-    find(): any{
-        console.log("find not implemented");
+    range!: CmRange;
+    options: any;
+
+    find(): CmRange{
+        return this.range;
     }
 };
 
@@ -34,10 +59,10 @@ class CodeMirrorAdapter {
              new vscode.Position(to.line, to.ch)), replacement);
         });
     }
-    markText(from: { line:number, ch :number}, 
-        to: { line:number, ch:number }, options?: object): TextMarkerAdapter {
+    markText(from: CmPosition,
+        to: CmPosition, options?: object): TextMarkerAdapter {
 
-        return new TextMarkerAdapter();
+        return new TextMarkerAdapter(new CmRange(from,to), options);
     }
 }
 
