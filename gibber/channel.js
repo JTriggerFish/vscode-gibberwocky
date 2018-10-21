@@ -1,6 +1,6 @@
 
 var global = require('./global.js')
-const performance = require('perf_hooks')
+const { performance } = require('perf_hooks')
 module.exports = function( Gibber ) {
 
 const noteon  = 0x90,

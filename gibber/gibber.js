@@ -1,5 +1,5 @@
 var global = require('./global.js')
-const performance = require('perf_hooks')
+const { performance } = require('perf_hooks')
 const vscode = require('vscode')
 
 let Gibber = {

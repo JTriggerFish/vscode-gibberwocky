@@ -42,7 +42,7 @@ let lomView = {
 
   processTrack( track, id ) {
     let trackID = id === undefined ? track.spec.name : id
-    console.log('Process track ' + trackId + ' lomtree TODO ')
+    console.log('Process track ' + trackID + ' lomtree TODO ')
 
     // lomView.tree.add({ label:trackID, id:trackID }) 
 
