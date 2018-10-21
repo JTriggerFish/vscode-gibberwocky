@@ -92,5 +92,9 @@
         "tslint": "^5.8.0",
         "typescript": "^2.6.1",
         "vscode": "^1.1.21"
+    },
+    "optionalDependencies": {
+        "bufferutil": "^4.0.0",
+        "utf-8-validate": "^5.0.1"
     }
 }
