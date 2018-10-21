@@ -58,8 +58,11 @@ class CodeMirrorAdapter {
             return; // No open text editor
         }
         editor.edit(editBuilder => {
-            editBuilder.replace(new vscode.Range(new vscode.Position(from.line, from.ch),
-             new vscode.Position(to.line, to.ch)), replacement);
+            editBuilder.delete(new vscode.Range(new vscode.Position(from.line, from.ch),
+             new vscode.Position(to.line, to.ch)));
+        });
+        editor.edit(editBuilder => {
+            editBuilder.insert(new vscode.Position(from.line, from.ch), replacement);
         });
     }
     markText(from: CmPosition,

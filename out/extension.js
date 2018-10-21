@@ -17,7 +17,7 @@ function activate(context) {
     };
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
-    // The commandId parameter must match the command field in package.json
+    // The commandId parameter must match the command field in package.jso
     let delayedExecDisposable = vscode.commands.registerCommand('gibberwocky.delayedExecute', function () {
         // vscode.window.showInformationMessage('Gibberwocky delayed execute');
         let editor = vscode.window.activeTextEditor;
@@ -25,13 +25,23 @@ function activate(context) {
             return; // No open text editor
         }
         let selection = editor.selection;
-        const text = editor.document.getText(selection);
+        let position;
+        let text = "";
+        if (selection.isEmpty) {
+            let line = editor.document.lineAt(selection.active.line);
+            text = line.text;
+            position = line.range.start;
+        }
+        else {
+            text = editor.document.getText(selection);
+            position = selection.anchor;
+        }
         const textF = "with(global.shared){\n" + text + "\n}";
         try {
             Gibber.Scheduler.functionsToExecute.push(new loophole.Function(textF).bind(Gibber.currentTrack));
             //Environment.flash( cm, selectedCode.selection )
             const markupFunction = () => {
-                Gibber.CodeMarkup.process(text, selection.anchor, new codeMirrorAdapter_1.default(), Gibber.currentTrack);
+                Gibber.CodeMarkup.process(text, position, new codeMirrorAdapter_1.default(), Gibber.currentTrack);
             };
             Gibber.Scheduler.functionsToExecute.push(markupFunction);
         }

@@ -24,7 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
-    // The commandId parameter must match the command field in package.json
+    // The commandId parameter must match the command field in package.jso
     let delayedExecDisposable = vscode.commands.registerCommand('gibberwocky.delayedExecute',
         function () {
             // vscode.window.showInformationMessage('Gibberwocky delayed execute');
@@ -34,7 +34,19 @@ export function activate(context: vscode.ExtensionContext) {
             }
 
         let selection = editor.selection;
-        const text = editor.document.getText(selection);
+        let position: vscode.Position;
+        let text: string = "";
+
+        if(selection.isEmpty)
+        {
+            let line = editor.document.lineAt(selection.active.line);
+            text = line.text;
+            position = line.range.start;
+        }
+        else{
+            text = editor.document.getText(selection);
+            position = selection.anchor;
+        }
         const textF = "with(global.shared){\n" + text + "\n}";
 
         try{
@@ -45,7 +57,7 @@ export function activate(context: vscode.ExtensionContext) {
             const markupFunction = () => {
                 Gibber.CodeMarkup.process(
                     text,
-                    selection.anchor,
+                    position,
                     new CodeMirrorAdapter(),
                     Gibber.currentTrack
                 );
