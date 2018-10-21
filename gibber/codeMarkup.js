@@ -194,7 +194,7 @@ module.exports = function (Gibber) {
         // because changing the mark of the values pattern messes up the mark of the timings
         // pattern; reversing their order of execution fixes this.  
         if (patternObject.__delayAnnotations === true) {
-          Gibber.Environment.animationScheduler.add(() => {
+          Gibber.AnimationScheduler.add(() => {
             if (patternObject.type !== 'Lookup') {
               patternObject.update.currentIndex = idx
             } else {
@@ -204,7 +204,7 @@ module.exports = function (Gibber) {
             patternObject.update()
           }, wait + 1)
         } else {
-          Gibber.Environment.animationScheduler.add(() => {
+          Gibber.AnimationScheduler.add(() => {
             if (patternObject.type !== 'Lookup') {
               patternObject.update.currentIndex = idx
             } else {

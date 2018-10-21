@@ -61,7 +61,7 @@ const WavePattern = {
       if( output === pattern.DNR ) output = null
 
       if( pattern.running === false ) { 
-        Gibber.Environment.animationScheduler.add( pattern.runVisualization, 1000/60 )
+        Gibber.AnimationScheduler.add( pattern.runVisualization, 1000/60 )
         pattern.running = true
       }
 
@@ -182,7 +182,7 @@ const WavePattern = {
     this( true ) // I LOVE JS
 
     if( this.pattern.shouldStop === false )
-      Gibber.Environment.animationScheduler.add( this.pattern.runVisualization, 1000 / 60 )
+      Gibber.AnimationScheduler.add( this.pattern.runVisualization, 1000 / 60 )
   },
 
   assignInputProperties( genishGraph, abstractGraph ) {
@@ -200,7 +200,7 @@ const WavePattern = {
   run( isViz = false ) {
     let now 
     if( isViz === true ) {
-      now = Gibber.Environment.animationScheduler.visualizationTime.base + Gibber.Environment.animationScheduler.visualizationTime.phase //+ 4
+      now = Gibber.AnimationScheduler.visualizationTime.base + Gibber.AnimationScheduler.visualizationTime.phase //+ 4
     }else{
       now = Gibber.Scheduler.currentTimeInMs 
     }

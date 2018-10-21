@@ -1,4 +1,5 @@
 const Queue = require( './priorityqueue.js' )
+const performance = require('perf_hooks')
 var global = require('./global.js')
 
 let Scheduler = {

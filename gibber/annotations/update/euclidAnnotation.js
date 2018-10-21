@@ -93,7 +93,7 @@ module.exports = ( patternObject, marker, className, cm, track ) => {
     let delay = Utility.beatsToMs( 1,  Gibber.Scheduler.bpm )
     markStart = track.markup.textMarkers[ className ][ 0 ].find()
 
-    Gibber.Environment.animationScheduler.add( () => {
+    Gibber.AnimationScheduler.add( () => {
       for( let i = 0; i < patternObject.values.length; i++ ) {
 
         let markerCh = track.markup.textMarkers[ className ][ i ],

@@ -1,4 +1,5 @@
 var global = require('./global.js')
+const performance = require('perf_hooks')
 const vscode = require('vscode')
 
 let Gibber = {
@@ -8,6 +9,8 @@ let Gibber = {
   Theory:        require( './theory.js' ),
   Examples:      require( './example.js' ),
   CodeMarkup:    require( './codeMarkup.js' ),
+  LomView:       require('./lomView.js'),
+  AnimationScheduler : require('./animationScheduler.js'),
   Live:          null,
   Track:         null,
   Gen:           null,
@@ -71,6 +74,7 @@ let Gibber = {
       this.Communication.init( Gibber );
       this.CodeMarkup = this.CodeMarkup(Gibber);
       this.CodeMarkup.init();
+      this.AnimationScheduler.init();
     }
 
     //this.currentTrack = this.Track( this, 1 ) // TODO: how to determine actual "id" from Max?
@@ -157,6 +161,8 @@ let Gibber = {
 
     Gibber.Gen.clear()
     Gibber.publish( 'clear' )
+    Gibber.AnimationScheduler.clear()
+    Gibber.CodeMarkup.clear()
     Gibber.initSingletons( global.shared )
   },
 
@@ -410,7 +416,7 @@ let Gibber = {
 
     Gibber.Seq.proto.externalMessages[ seqKey ] = ( val, offset=null ) => {
       let msg = [ 0xb0 + channel, ccnum, val ]
-      const baseTime = offset !== null ? global.shared.performance.now() + offset : global.shared.performance.now()
+      const baseTime = offset !== null ? performance.now() + offset : performance.now()
 
       Gibber.MIDI.send( msg, baseTime )
     }

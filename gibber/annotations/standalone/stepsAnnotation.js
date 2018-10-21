@@ -65,7 +65,7 @@ module.exports = function( node, cm, track, objectName, state, cb ) {
 
       patternObject._onchange = () => {
         let delay = Utility.beatsToMs( 1,  Gibber.Scheduler.bpm )
-        Gibber.Environment.animationScheduler.add( () => {
+        Gibber.AnimationScheduler.add( () => {
           marker.doc.replaceRange( patternObject.values.join(''), step.loc.start, step.loc.end )
           mark( step, key, cm, track )
         }, delay ) 

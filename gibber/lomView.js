@@ -1,4 +1,4 @@
-require( './vanillatree.js' )
+// require( './vanillatree.js' )
 
 let Gibber = null, count = -1
 
@@ -16,10 +16,13 @@ let lomView = {
   },
 
   setup() {
-    document.querySelector( '#lomView' ).innerHTML = ''
+    //TODO replace with vscode tree adapter
 
-    this.tree = new VanillaTree('#lomView', {
-      placeholder: ''
+    // document.querySelector( '#lomView' ).innerHTML = ''
+
+    // this.tree = new VanillaTree('#lomView', {
+    //   placeholder: ''
+
       //contextmenu: [{
       //  label: 'Label 1',
       //  action: function(id) {
@@ -31,7 +34,7 @@ let lomView = {
       //    // someAction
       //  }
       //}]
-    })
+    // })
     //elem.addEventListener( 'vtree-select', function( evt ) {
     //  console.log( evt, evt.detail )
     //});
@@ -39,12 +42,15 @@ let lomView = {
 
   processTrack( track, id ) {
     let trackID = id === undefined ? track.spec.name : id
-    lomView.tree.add({ label:trackID, id:trackID }) 
+    console.log('Process track ' + trackId + ' lomtree TODO ')
+
+    // lomView.tree.add({ label:trackID, id:trackID }) 
+
     for( let device of track.devices ) {
       let deviceID = device.name // device.title
-      lomView.tree.add({ label:deviceID, id:deviceID, parent:trackID })
+      // lomView.tree.add({ label:deviceID, id:deviceID, parent:trackID })
       for( let param of device.parameters ) {
-        lomView.tree.add({ label:param.name, id:encodeURI(param.name), parent:deviceID })
+        // lomView.tree.add({ label:param.name, id:encodeURI(param.name), parent:deviceID })
       }
     }
   },
