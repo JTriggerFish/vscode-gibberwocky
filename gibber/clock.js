@@ -52,7 +52,9 @@ let Scheduler = {
 
       // execute callback function for tick passing schedule, time and beatOffset
       // console.log( 'next tick', nextTick.shouldExecute )
-      nextTick.seq.tick( this, beat, beatOffset, nextTick.shouldExecute )
+
+      //JTM TODO : not clear what the original nextTick.shouldExecute argument was meant to do.
+      nextTick.seq.tick( this, beat, beatOffset)//, nextTick.shouldExecute )
 
       // recursively call advance
       this.advance( advanceAmount, beat ) 

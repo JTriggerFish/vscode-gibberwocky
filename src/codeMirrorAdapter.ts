@@ -32,6 +32,9 @@ class TextMarkerAdapter {
     find(): CmRange{
         return this.range;
     }
+    clear() : void {
+        console.log("Marker clear : TODO");
+    }
 };
 
 class CodeMirrorAdapter {
