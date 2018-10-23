@@ -21,12 +21,19 @@ let Channel = {
 
       __velocity: 64,
       __duration: 1000,
-      
+      __octave:   0,
+
+      octave( v ) {
+        if( v===undefined ) return channel.__octave
+
+        channel.__octave = v
+        return channel
+      },
       note( num, offset=null, doNotConvert=false ){
         const notenum = doNotConvert === true ? num : Gibber.Theory.Note.convertToMIDI( num )
         
         let msg = [ 0x90 + channel.number, notenum, channel.__velocity ]
-        const baseTime = offset !== null ? performance.now() + offset : performance.now()
+        const baseTime = offset !== null ? offset : 0 
 
         Gibber.MIDI.send( msg, baseTime )
         msg[0] = 0x80 + channel.number
@@ -38,7 +45,7 @@ let Channel = {
 
       midinote( num, offset=null ) {
         let msg = [ 0x90 + channel.number, num, channel.__velocity ]
-        const baseTime = offset !== null ? performance.now() + offset : performance.now()
+        const baseTime = offset !== null ? offset : 0 
 
         Gibber.MIDI.send( msg, baseTime )
         msg[0] = 0x80 + channel.number
@@ -46,11 +53,16 @@ let Channel = {
       },
       
       duration( value ) {
+        if( value === undefined ) { return channel.__duration }
+
         channel.__duration = value
+        return channel 
       },
       
       velocity( value ) {
+        if( value === undefined ) { return channel.__velocity }
         channel.__velocity = value 
+        return channel
       },
 
       mute( value ) {
@@ -105,31 +117,44 @@ let Channel = {
     }
 
     Gibber.CodeMarkup.prepareObject( channel ) 
-    Gibber.addSequencingToMethod( channel, 'note' )
-    Gibber.addSequencingToMethod( channel, 'chord' )
-    Gibber.addSequencingToMethod( channel, 'velocity', 1 )
-    Gibber.addSequencingToMethod( channel, 'duration', 1 )
-    Gibber.addSequencingToMethod( channel, 'midinote' )
-    Gibber.addSequencingToMethod( channel, 'midichord' )
+    Gibber.addSequencingToMethod( channel, 'note', null, null, 'midi' )
+    Gibber.addSequencingToMethod( channel, 'chord', null, null, 'midi' )
+    Gibber.addSequencingToMethod( channel, 'velocity', 1, null, 'midi' )
+    Gibber.addSequencingToMethod( channel, 'duration', 1, null, 'midi' )
+    Gibber.addSequencingToMethod( channel, 'midinote', null, null, 'midi' )
+    Gibber.addSequencingToMethod( channel, 'midichord', null, null, 'midi' )
 
     for( let i = 0; i < 128; i++ ) {
       const ccnum = i
       channel[ 'cc'+ccnum ] = ( val, offset = null ) => {
         let msg = [ 0xb0 + channel.number, ccnum, val ]
-        const baseTime = offset !== null ? performance.now() + offset : performance.now()
+        const baseTime = offset !== null ? offset : 0 
 
         Gibber.MIDI.send( msg, baseTime )
       }
 
-      Object.assign( channel[ 'cc'+ccnum], {
+      Object.assign( channel[ 'cc'+ccnum ], {
         markup: {
           textClasses:{},
           cssClasses:{}
         }
       })
 
-      Gibber.addMethod( channel, 'cc'+ccnum, channel.number, ccnum  ) 
-      //Gibber.addSequencingToMethod( channel, 'cc'+i  )
+      Gibber.addMethod( channel, 'cc'+ccnum, ccnum, channel.number, 'midi' ) 
+      //Gibber.addSequencingToMethod( channel, 'cc'+i, null, null, 'midi'  )
+      channel[ 'cc'+ccnum ].stop = function() {
+        const id = ccnum+'0000'+channel.number
+        const prevGen = Gibber.Gen.connected.find( e => e.paramID === id )
+
+        console.log( id, prevGen )
+        
+        if( prevGen !== undefined ) {
+          prevGen.clear()
+          prevGen.shouldStop = true
+          const idx = Gibber.Gen.connected.findIndex( e => e.paramID === id ) 
+          Gibber.Gen.connected.splice( idx, 1 )
+        }
+      }
     }
 
     return channel

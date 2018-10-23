@@ -11,8 +11,8 @@ let Scheduler = {
     phase:0,
   },
 
-  init() {
-
+  init( __Gibber ) {
+    Gibber = __Gibber
     global.shared.requestAnimationFrame( this.onAnimationFrame ) 
 
   },
@@ -33,7 +33,7 @@ let Scheduler = {
     try{
       evt.func()
     }catch(e) {
-      console.log( 'annotiation error:', e.toString() )
+      console.log( 'annotation error:', e.toString() )
     }
   },
 
