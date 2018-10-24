@@ -21,36 +21,50 @@ const MIDI = {
     //this.setModulationOutputRate()
   },
 
+  createClockMenu() {
+    // document.querySelector( '#liveSyncRadio' )
+    //   .addEventListener( 'click', Gibber.Scheduler.sync.bind( Gibber.Scheduler, 'live' ) )
+
+    // document.querySelector( '#maxSyncRadio' )
+    //   .addEventListener( 'click', Gibber.Scheduler.sync.bind( Gibber.Scheduler, 'max' ) )
+
+    // document.querySelector( '#clockSyncRadio' )
+    //   .addEventListener( 'click', Gibber.Scheduler.sync.bind( Gibber.Scheduler, 'external' ) )
+
+    // document.querySelector( '#internalSyncRadio' )
+    //   .addEventListener( 'click', Gibber.Scheduler.sync.bind( Gibber.Scheduler, 'internal' ) )
+  },
+
   setModulationOutputRate() {
-    const modulationRate = localStorage.getItem('midi.modulationOutputRate')
+    // const modulationRate = localStorage.getItem('midi.modulationOutputRate')
 
-    const modRateInput = document.querySelector('#modulationRate')
+    // const modRateInput = document.querySelector('#modulationRate')
 
-    if( modulationRate !== null && modulationRate !== undefined ) {
-      Gibber.Gen.genish.gen.samplerate = parseFloat( modulationRate )
-      modRateInput.value = Gibber.Gen.genish.gen.samplerate
-    }else{
-      Gibber.Gen.genish.gen.samplerate = 60
-    }
+    // if( modulationRate !== null && modulationRate !== undefined ) {
+    //   Gibber.Gen.genish.gen.samplerate = parseFloat( modulationRate )
+    //   modRateInput.value = Gibber.Gen.genish.gen.samplerate
+    // }else{
+    //   Gibber.Gen.genish.gen.samplerate = 60
+    // }
 
-    modRateInput.onchange = function(e) {
-      Gibber.Gen.genish.gen.samplerate = e.target.value
+    // modRateInput.onchange = function(e) {
+    //   Gibber.Gen.genish.gen.samplerate = e.target.value
       
-      localStorage.setItem('midi.modulationOutputRate', Gibber.Gen.genish.gen.samplerate )
-    }
+    //   localStorage.setItem('midi.modulationOutputRate', Gibber.Gen.genish.gen.samplerate )
+    // }
    
   },
 
   openLastUsedPorts() {
-    const lastMIDIInput = localStorage.getItem('midi.input'),
-          lastMIDIOutput = localStorage.getItem('midi.output')
+    // const lastMIDIInput = localStorage.getItem('midi.input'),
+    //       lastMIDIOutput = localStorage.getItem('midi.output')
 
-    //if( lastMIDIInput !== null && lastMIDIInput !== undefined ) {
-    //  this.selectInputByName( lastMIDIInput ) 
-    //}
-    if( lastMIDIOutput !== null && lastMIDIOutput !== undefined ) {
-      this.selectOutputByName( lastMIDIOutput ) 
-    }
+    // if( lastMIDIInput !== null && lastMIDIInput !== undefined ) {
+    //   this.selectInputByName( lastMIDIInput ) 
+    // }
+    // if( lastMIDIOutput !== null && lastMIDIOutput !== undefined ) {
+    //   this.selectOutputByName( lastMIDIOutput ) 
+    // }
   },
   createChannels() {
     for( let i = 0; i < 16; i++ ) {
@@ -59,31 +73,30 @@ const MIDI = {
   },
 
   createInputAndOutputLists( midiAccess ) {
-    //let optin = document.createElement( 'option' )
-    //optin.text = 'none'
-    let optout = document.createElement( 'option' )
-    optout.text = 'none'
-    //MIDI.midiInputList.add( optin )
-    MIDI.midiOutputList.add( optout )
+    // let optin = document.createElement( 'option' )
+    // optin.text = 'none'
+    // let optout = document.createElement( 'option' )
+    // optout.text = 'none'
+    // MIDI.midiInputList.add( optin )
+    // MIDI.midiOutputList.add( optout )
 
-    //MIDI.midiInputList.onchange = MIDI.selectInputViaGUI
-    MIDI.midiOutputList.onchange = MIDI.selectOutputViaGUI
+    // MIDI.midiInputList.onchange = MIDI.selectInputViaGUI
+    // MIDI.midiOutputList.onchange = MIDI.selectOutputViaGUI
     
-    //const inputs = midiAccess.inputs
-    //for( let input of inputs.values() ) {
-    //  const opt = document.createElement( 'option' )
-    //  opt.text = input.name
-    //  opt.input = input
-    //  MIDI.midiInputList.add( opt )
-    //}
+    // const inputs = midiAccess.inputs
+    // for( let input of inputs.values() ) {
+    //   const opt = document.createElement( 'option' )
+    //   opt.text = input.name
+    //   opt.input = input
+    //   MIDI.midiInputList.add( opt )
 
-    const outputs = midiAccess.outputs
-    for( let output of outputs.values() ) {
-      const opt = document.createElement('option')
-      opt.output = output
-      opt.text = output.name
-      MIDI.midiOutputList.add(opt)
-    }
+    // const outputs = midiAccess.outputs
+    // for( let output of outputs.values() ) {
+    //   const opt = document.createElement('option')
+    //   opt.output = output
+    //   opt.text = output.name
+    //   MIDI.midiOutputList.add(opt)
+    // }
 
   },
 
@@ -153,16 +166,19 @@ const MIDI = {
     }
   },
 
-  send( msg, timestamp ) {
-    MIDI.output.send( msg, timestamp )
+  send( msg, timestamp, isNoteMsg=false, duration=-1 ) {
+    MIDI.output.send( msg, performance.now() + timestamp )
+    if( isNoteMsg === true ) { // send noteoff
+      msg[0] -= 16 // change to noteoff msg
+      MIDI.output.send( msg, timestamp + duration - 1  )
+    }
   },
 
+  beat:0, 
   handleMsg( msg ) {
-    if( msg.data[0] !== 248 ) {
-      //console.log( 'midi message:', msg.data[0], msg.data[1] )
-    }
+    //if( msg.data[0] !== 254 ) { console.log( 'midi message:', msg.data[0], msg.data[1] ) }
 
-    if( Gibber.Scheduler.__sync__ === true ) {
+    if( Gibber.Scheduler.__sync__ === 'clock' ) {
       if( msg.data[0] === 0xf2 ) { // stop
         MIDI.timestamps.length = 0
         MIDI.clockCount = 0
@@ -187,7 +203,7 @@ const MIDI = {
           Gibber.Scheduler.bpm = Math.round( Math.round( bpm *  100 ) / 100 )
    
           if( MIDI.clockCount++ === 23 ) {
-            Gibber.Scheduler.advanceBeat()
+            Gibber.Scheduler.seq( MIDI.beat++ % 4 , 'clock' )
             MIDI.clockCount = 0
           }
 
@@ -200,7 +216,7 @@ const MIDI = {
             MIDI.lastClockTime = msg.timeStamp
           }else{
             MIDI.lastClockTime = msg.timeStamp
-            Gibber.Scheduler.advanceBeat()
+            Gibber.Scheduler.seq( MIDI.beat++ % 4, 'clock' )
           }
 
           MIDI.clockCount++

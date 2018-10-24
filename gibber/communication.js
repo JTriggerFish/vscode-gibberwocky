@@ -1,3 +1,4 @@
+var global = require('./global.js')
 let Gibber = null
 const WebSocket = require('ws');
 const JSON = require('json');
@@ -192,7 +193,7 @@ let Communication = {
         break;
 
       case 'clr' :
-        Gibber.Environment.clearConsole()
+        Gibber.clearConsole()
         break;
 
       case 'bpm' :
@@ -200,7 +201,7 @@ let Communication = {
         break;
 
       case 'err':
-        Gibber.Environment.error( data )
+        Gibber.error( data )
         break;
 
       default:
@@ -224,14 +225,14 @@ let Communication = {
   querystring : null,
 }
 
-let qstr = window.location.search,
-    query = {},
-    a = qstr.substr( 1 ).split( '&' )
+// let qstr = window.location.search,
+//     query = {},
+//     a = qstr.substr( 1 ).split( '&' )
 
-for ( let i = 0; i < a.length; i++ ) {
-  let b = a[ i ].split( '=' )
-  query[ decodeURIComponent( b[0]) ] = decodeURIComponent( b[1] || '' )
-}
+// for ( let i = 0; i < a.length; i++ ) {
+//   let b = a[ i ].split( '=' )
+//   query[ decodeURIComponent( b[0]) ] = decodeURIComponent( b[1] || '' )
+// }
 
 Communication.querystring =  query
 

@@ -3,8 +3,8 @@ module.exports = function( Gibber ) {
 
 let Live = {
   init() {
-    Gibber.Communication.callbacks.scene = Live.handleScene
-    Gibber.Communication.send( 'get_scene' )
+    Gibber.Communication.callbacks.schemas.live = Live.handleScene
+    Gibber.Communication.send( 'get_scene', 'live' )
   },
 
   tracks:[],
@@ -12,12 +12,13 @@ let Live = {
   returns:[],
   
   handleScene( msg ) {
-    // Live.id = Gibber.Communication.querystring.track
-    Live.id = 0; //TODO what is this for ??
+    Live.id = Communication.querystring.track
 
-    Live.LOM = msg
+    if( msg.tracks !== undefined ) {
+      Live.LOM = msg
 
-    Live.processLOM()
+      Live.processLOM()
+    }
   },
 
   processLOM() {
@@ -48,7 +49,7 @@ let Live = {
 
     Gibber.LomView.init(Gibber)
 
-    // Gibber.Environment.lomView.init( Gibber )
+    // Gibber.LomView.init( Gibber )
 
     Gibber.publish( 'lom_update' )
   },

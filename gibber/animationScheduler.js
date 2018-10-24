@@ -51,7 +51,7 @@ let Scheduler = {
       //  nextEvent.func()
       //}catch( e ) {
       //  console.log( e )
-      //  Gibber.Environment.error( 'annotation error:', e.toString() )
+      //  Gibber.Error( 'annotation error:', e.toString() )
       //}
       
       // call recursively

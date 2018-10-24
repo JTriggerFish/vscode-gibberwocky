@@ -51,12 +51,17 @@ const Waveform = {
         const state = cm.__state
         
         if( node.callee.name !== 'Lookup' ) {
-          const track  = global.shared[ state[0] ][ state[1] ]
+          const objName = `${state[0]}`
+          const track  = global.shared.signals[0]//window[ objName ][ state[1] ]
+          let wave
+          if( state.length > 2 ) {
+            wave = track[ node.callee.object.property.value][ node.arguments[2].value ] 
+          }else{
+            wave = track() 
+          }
 
-          const seq = track[ node.callee.object.property.value][ node.arguments[2].value ] 
-
-          if( seq !== undefined && seq.values.type === 'WavePattern' ) {
-            widget.gen = seq.values
+          if( wave !== undefined && wave.values.type === 'WavePattern' ) {
+            widget.gen = wave.values
             widget.gen.paramID += '_' + node.arguments[2].value
             //widget.gen.widget = widget
           }
@@ -80,12 +85,13 @@ const Waveform = {
     //for( let i = 0; i < 120; i++ ) widget.values[ i ] = 0
 
     let replaced = false
-    //if( isAssignment === false ) {
+    //if( isAssignment === false && isSeq === false ) {
     //  if( widget.gen !== null ) {
     //    let oldWidget = Waveform.widgets[ widget.gen.paramID ] 
 
     //    if( oldWidget !== undefined ) {
     //      //oldWidget.parentNode.removeChild( oldWidget )
+    //      console.log( 'replaced' )
     //      widget = oldWidget
     //      replaced = true
     //    } 
@@ -178,11 +184,15 @@ const Waveform = {
     const drawn = []
 
     for( let key in Waveform.widgets ) {
+      if( key === 'dirty' ) continue
+
       const widget = Waveform.widgets[ key ]
 
       // ensure that a widget does not get drawn more
       // than once per frame
       if( drawn.indexOf( widget ) !== -1 ) continue
+
+      
 
       if( typeof widget === 'object' && widget.ctx !== undefined ) {
 

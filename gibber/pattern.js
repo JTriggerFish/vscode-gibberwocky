@@ -426,14 +426,14 @@ Pattern.listeners.range = function( fnc ) {
         ptrnEnd = obj.markup.textMarkers[ fnc.patternName ][ obj.markup.textMarkers[ fnc.patternName ].length - 1 ].find()
 
     //fnc.column.editor.markText( ptrnStart.from, ptrnEnd.to, { className:'rangeOutside' })
-    //Gibber.Environment.codemirror.markText( ptrnStart.from, ptrnEnd.to, { className:'pattern-update-range-outside' })
+    //Gibber.Codemirror.markText( ptrnStart.from, ptrnEnd.to, { className:'pattern-update-range-outside' })
     if( !Pattern.listeners.range.initialzied ) Pattern.listeners.range.init()
   }
 
   if( fnc.range.mark ) fnc.range.mark.clear()
   //fnc.range.mark = fnc.column.editor.markText( rangeStart.from, rangeEnd.to, { className:'rangeInside' })
   // TODO: Dont use GE.codemirror... how else do I get this? stored in pattern is created?
-  // fnc.range.mark = Gibber.Environment.codemirror.markText( rangeStart.from, rangeEnd.to, { className:'pattern-update-range-inside' })
+  fnc.range.mark = Gibber.Codemirror.markText( rangeStart.from, rangeEnd.to, { className:'pattern-update-range-inside' })
 }
 
 Pattern.listeners.range.init = function() {

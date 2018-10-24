@@ -64,7 +64,7 @@ let Scheduler = {
       this.sync( 'max' )
     }
 
-    this.animationClock = Gibber.Environment.animationClock
+    this.animationClock = Gibber.animationClock
   },
 
   run() {
