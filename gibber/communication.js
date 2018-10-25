@@ -233,7 +233,6 @@ let Communication = {
 //   let b = a[ i ].split( '=' )
 //   query[ decodeURIComponent( b[0]) ] = decodeURIComponent( b[1] || '' )
 // }
-
-Communication.querystring =  query
+// Communication.querystring =  query
 
 module.exports = Communication

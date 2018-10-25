@@ -27,7 +27,7 @@ function activate(context) {
         let selection = editor.selection;
         let position;
         let text = "";
-        if (selection.isEmpty) {
+        if (selection.isEmpty || (selection.end.character - selection.start.character) < 2) {
             let line = editor.document.lineAt(selection.active.line);
             text = line.text;
             position = line.range.start;

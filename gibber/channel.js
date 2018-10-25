@@ -1,4 +1,3 @@
-
 var global = require('./global.js')
 const { performance } = require('perf_hooks')
 module.exports = function( Gibber ) {

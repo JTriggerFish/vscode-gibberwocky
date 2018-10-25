@@ -6,15 +6,15 @@ const MIDI = {
   init( _Gibber ) {
     Gibber = _Gibber
 
-    const midiPromise = navigator.requestMIDIAccess()
-      .then( midiAccess => {
-        MIDI.midiAccess = midiAccess
-        MIDI.createInputAndOutputLists( midiAccess )
-        MIDI.openLastUsedPorts()
-      }, ()=> console.log('access failure') )
+    // const midiPromise = navigator.requestMIDIAccess()
+    //   .then( midiAccess => {
+    //     MIDI.midiAccess = midiAccess
+    //     MIDI.createInputAndOutputLists( midiAccess )
+    //     MIDI.openLastUsedPorts()
+    //   }, ()=> console.log('access failure') )
 
-    this.midiInputList = document.querySelector( '#midiInputSelect' )
-    this.midiOutputList = document.querySelector( '#midiOutputSelect' )
+    // this.midiInputList = document.querySelector( '#midiInputSelect' )
+    // this.midiOutputList = document.querySelector( '#midiOutputSelect' )
 
     this.createChannels()
     // XXX restore

@@ -45,24 +45,28 @@ let Scheduler = {
       }
     }
 
-    localStorage.setItem( 'sync', mode )
+    // localStorage.setItem( 'sync', mode )
   },
 
   init( __Gibber ) {
     Gibber = __Gibber
-    const sync = localStorage.getItem( 'sync' )
 
-    if( sync !== null && sync !== undefined ) { 
-      this.sync( sync )
-      switch( sync ) {
-        case 'internal': document.querySelector('#internalSyncRadio').setAttribute( 'checked', true ); break;
-        case 'clock':    document.querySelector('#clockSyncRadio').setAttribute( 'checked', true ); break; 
-        case 'live':     document.querySelector('#liveSyncRadio').setAttribute( 'checked', true ); break;
-        case 'max':      document.querySelector('#maxSyncRadio').setAttribute( 'checked', true ); break;
-      }
-    }else{
-      this.sync( 'max' )
-    }
+    // For now sync to live, TODO add sync to max
+    this.sync('live');
+
+    // const sync = localStorage.getItem( 'sync' )
+
+    // if( sync !== null && sync !== undefined ) { 
+    //   this.sync( sync )
+    //   switch( sync ) {
+    //     case 'internal': document.querySelector('#internalSyncRadio').setAttribute( 'checked', true ); break;
+    //     case 'clock':    document.querySelector('#clockSyncRadio').setAttribute( 'checked', true ); break; 
+    //     case 'live':     document.querySelector('#liveSyncRadio').setAttribute( 'checked', true ); break;
+    //     case 'max':      document.querySelector('#maxSyncRadio').setAttribute( 'checked', true ); break;
+    //   }
+    // }else{
+    //   this.sync( 'max' )
+    // }
 
     this.animationClock = Gibber.animationClock
   },

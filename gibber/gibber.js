@@ -61,25 +61,19 @@ let Gibber = {
   init() {
     this.$   = Gibber.Utility.create
 
-
     // this.Environment.init( Gibber )
     this.Theory.init( Gibber )
-
 
     this.log = (message) => {
       console.log(message);
     }
 
-    if(  false) {//this.Environment.debug ) {
-      this.Scheduler.mockRun()
-    }else{
-      this.MIDI.init( Gibber )
-      this.Scheduler.init(Gibber);
-      this.Communication.init( Gibber );
-      this.CodeMarkup = this.CodeMarkup(Gibber);
-      this.CodeMarkup.init();
-      this.AnimationScheduler.init();
-    }
+    this.Scheduler.init(Gibber);
+    this.Communication.init(Gibber);
+    this.CodeMarkup = this.CodeMarkup(Gibber);
+    this.CodeMarkup.init();
+    this.MIDI.init(Gibber)
+    this.AnimationScheduler.init();
 
     //this.currentTrack = this.Track( this, 1 ) // TODO: how to determine actual "id" from Max?
     

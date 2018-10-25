@@ -1,4 +1,4 @@
-require( './vanillatree.js' )
+// require( './vanillatree.js' )
 
 let Gibber = null, count = -1
 

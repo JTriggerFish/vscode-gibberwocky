@@ -37,7 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
         let position: vscode.Position;
         let text: string = "";
 
-        if(selection.isEmpty)
+        if(selection.isEmpty || (selection.end.character - selection.start.character) < 2)
         {
             let line = editor.document.lineAt(selection.active.line);
             text = line.text;
