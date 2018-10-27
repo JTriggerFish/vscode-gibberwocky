@@ -1,7 +1,19 @@
 import * as vscode from 'vscode';
 // import { readdir } from 'fs';
 
-class CmPosition {
+export class CmMarkerPosition {
+    constructor(start:CmPosition, horizontalOffset?: number) {
+        this.start = start;
+        if (!(horizontalOffset === undefined))
+        {
+            this.horizontalOffset = horizontalOffset;
+        }
+    }
+    start!: CmPosition;
+    horizontalOffset: number | undefined;
+}
+
+export class CmPosition {
     constructor(line: number, ch: number){
         this.line = line;
         this.ch = ch;
@@ -10,16 +22,16 @@ class CmPosition {
     ch!: number;
 }
 
-class CmRange {
+export class CmRange {
     constructor(from: CmPosition, to: CmPosition) {
         this.from = from;
         this.to = to;
     }
     from!: CmPosition;
     to!: CmPosition;
-};
+}
 
-class TextMarkerAdapter {
+export class TextMarkerAdapter {
     constructor(range: CmRange, options?: object) {
         this.range = range;
         this.options = options;
@@ -35,9 +47,9 @@ class TextMarkerAdapter {
     clear() : void {
         console.log("Marker clear : TODO");
     }
-};
+}
 
-class CodeMirrorAdapter {
+export class CodeMirrorAdapter {
 
     __state : any;
 
@@ -71,5 +83,3 @@ class CodeMirrorAdapter {
         return new TextMarkerAdapter(new CmRange(from,to), options);
     }
 }
-
-export default CodeMirrorAdapter;

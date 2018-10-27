@@ -12,7 +12,7 @@ let Live = {
   returns:[],
   
   handleScene( msg ) {
-    Live.id = Communication.querystring.track
+    Live.id = 0;
 
     if( msg.tracks !== undefined ) {
       Live.LOM = msg

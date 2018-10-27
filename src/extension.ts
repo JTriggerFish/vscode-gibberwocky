@@ -2,7 +2,7 @@
 
 var global = require('../gibber/global.js');
 import * as vscode from 'vscode';
-import CodeMirrorAdapter from'./codeMirrorAdapter';
+import {CmPosition, CmMarkerPosition, CodeMirrorAdapter} from'./codeMirrorAdapter';
 
 const Gibber = require('../gibber/gibber');
 import LomTree from './lomTree';
@@ -57,7 +57,8 @@ export function activate(context: vscode.ExtensionContext) {
             const markupFunction = () => {
                 Gibber.CodeMarkup.process(
                     text,
-                    position,
+                    new CmMarkerPosition(new CmPosition(position.line, position.character), 
+                        position.character),
                     new CodeMirrorAdapter(),
                     Gibber.currentTrack
                 );

@@ -120,8 +120,8 @@ let Communication = {
   handleMessage( _msg, socket ) {
     let id, key, data, msg, isLiveMsg=true
     
-    if( _msg.data.charAt( 0 ) === '{' ) {
-      data = _msg.data
+    if( _msg.charAt( 0 ) === '{' ) {
+      data = _msg
       key = null
       const json = JSON.parse( data )
       const schema = json.namespaces !== undefined ? 'max' : 'live'
@@ -129,8 +129,8 @@ let Communication = {
       if( Communication.callbacks.schemas[ schema ] ) {
         Communication.callbacks.schemas[ schema ]( JSON.parse( data ) )
       }
-    }else if( _msg.data.includes( 'snapshot' ) ) {
-      data = _msg.data.substr( 9 ).split(' ')
+    }else if( _msg.includes( 'snapshot' ) ) {
+      data = _msg.substr( 9 ).split(' ')
 
       // if we're not using genish.js for modulation...
       if( Gibber.__gen.enabled !== false ) {
@@ -151,7 +151,7 @@ let Communication = {
       }
       return
     }else{
-      msg = _msg.data.split( ' ' )
+      msg = _msg.split( ' ' )
 
       isLiveMsg = msg.length > 2
 
@@ -185,7 +185,7 @@ let Communication = {
     switch( key ) {
       case 'seq' :
         if( data === undefined ) {
-          console.log( 'faulty ws seq message', _msg.data )
+          console.log( 'faulty ws seq message', _msg )
         }else{
           const from = socket === Communication.liveSocket ? 'live' : 'max' 
           Gibber.Scheduler.seq( data, socket.clientName );

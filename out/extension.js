@@ -41,7 +41,7 @@ function activate(context) {
             Gibber.Scheduler.functionsToExecute.push(new loophole.Function(textF).bind(Gibber.currentTrack));
             //Environment.flash( cm, selectedCode.selection )
             const markupFunction = () => {
-                Gibber.CodeMarkup.process(text, position, new codeMirrorAdapter_1.default(), Gibber.currentTrack);
+                Gibber.CodeMarkup.process(text, new codeMirrorAdapter_1.CmMarkerPosition(new codeMirrorAdapter_1.CmPosition(position.line, position.character), position.character), new codeMirrorAdapter_1.CodeMirrorAdapter(), Gibber.currentTrack);
             };
             Gibber.Scheduler.functionsToExecute.push(markupFunction);
         }
